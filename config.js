@@ -1,8 +1,7 @@
 'use strict'
-//const _      = require('lodash')
-//const fs     = require('fs')
-const url    = require('url')
+
 const getopt = require('node-getopt-long')
+const url    = require('url')
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -11,14 +10,14 @@ const defaults = {
     serverName  : 'inkas - NYX Knowledge Application Server', 	    
     copyright   : 'Copyright 2015 (c) Antonio A. Russo',
     logFormat   : 'combined',
-    
+    webapps     : './webapps',
     cors        : false,
     http2       : false,
     printAPI    : false,
     verbose     : false,
     cacheAge    : 86400000,
-    dbConn      : process.env.PG_CONNECTION_STRING || 'postgres://inkas@localhost/inkas',    
-    certRoot    : process.env.SSL_DIR || '/etc/ssl/live/leviathan.nyxk.com.br',
+    dbConn      : process.env.PG_CONNECTION_STRING,    
+    certRoot    : process.env.SSL_DIR,
     certFile    : { ca:     'chain.pem',
                     key:    'privkey.pem',
                     cert:   'fullchain.pem' }
@@ -26,8 +25,6 @@ const defaults = {
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-//const integer = function(v) { return parseInt(v) }
-
 const options =  getopt.configure([
 	['printAPI|a!',         { description: 'Print out ALL exposed API mountpaths' }],
 	['http2!',              { description: 'Enable HTTP/2 (default)' }],
@@ -43,6 +40,9 @@ const options =  getopt.configure([
 	helpPostfix   : defaults.copyright,	
 	defaults      : defaults }).process()
 
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 const pgURI = url.parse(options.dbConn)
 
 options.pgConn = {
@@ -51,12 +51,7 @@ options.pgConn = {
 	database: pgURI.pathname.replace(/^\//,'')
 }
 
-options.events = {
-    mooring: 'mooring', 
-    started: 'started', 
-    updated: 'updated', 
-    requested: 'requested', 
-    progressed: 'progressed', 
-}
+
+options.knex = require('knex')({client: 'pg', connection: options.pgConn, debug: false });
 
 module.exports = options

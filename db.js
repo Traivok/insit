@@ -4,8 +4,7 @@ const _ = require ('lodash')
 const options = require ('./config.js')
 
 // Module Require
-const knex = require('knex')({client: 'pg', connection: options.pgConn});
-const db   = require('bookshelf')(knex)
+const db   = require('bookshelf')(options.knex)
 const uid  = require('rand-token').uid
 
 ///////////////////////////////////////////////////////////////////////////////

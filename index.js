@@ -6,15 +6,14 @@
 const _			  = require('lodash')
 const fs		  = require('fs')
 const pg          = require('pg').native
-const url         = require('url')
 const path        = require('path')
 const spdy        = require('spdy')
 const chalk       = require('chalk')
 const compression = require('compression')
+const listRoutes  = require('express-list-routes')
 const session     = require('express-session')
 const pgSession   = require('connect-pg-simple')(session)
 const passport    = require('passport')
-const ListRoutes  = require('express-list-routes')
 
 const express	  = require('express')
 const morgan      = require('morgan')
@@ -39,17 +38,18 @@ srv.set('view engine', 'ejs')
 srv.use(log)
 console.log( chalk.bold.yellow('Starting %s'), chalk.bold.yellow(options.serverName) )
 
-// Serve libraries and JS modules
-//srv.use('/node_modules', express.static(__dirname+'/node_modules', {maxAge: options.cacheAge} ))
-
 srv.use(bodyParser.json()) 
 srv.use(bodyParser.urlencoded({extended: true}))
 
 srv.use(session({saveUninitialized: false, 
                  secret: options.serverName, 
                  resave: false, 
-                 store : new pgSession({ pg: pg, tableName: 'sessions', schemaName: 'auth', conString: options.pgConn })
-}))
+                 store : new pgSession({ pg: pg, 
+                                  tableName: 'sessions', 
+                                 schemaName: 'auth', 
+                                  conString: options.dbConn
+                                       })
+}));
 
 srv.use(passport.initialize())
 srv.use(passport.session())
@@ -57,9 +57,10 @@ srv.use(passport.session())
 // OAuth2 endpoints
 srv.use('/', require ('./oauth2.js') )
 
-
 // CORS
 if ( options.cors ) {
+    console.log( chalk.bold.yellow('CORS Enabled') );
+
     srv.use(function(req, res, next) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Methods", "GET, DELETE, OPTIONS, POST, PUT, HEAD");
@@ -68,15 +69,13 @@ if ( options.cors ) {
     });
 }
 
-const webapps = './webapps'
 
-
-// Function that bootstraps API on a webapp dir
-const bootstrapAPI = function(app) {
-    const appDist  = path.join(webapps,app,'dist')
-    const appAPI   = path.join(webapps,app,'api')
-    const appBase  = path.join(webapps,app)
-    const appRoute = path.join('/',    app)
+// Load applications
+fs.readdirSync(options.webapps).forEach(function(app) {
+    const appAPI   = path.join(options.webapps,app,'api')
+    const appDist  = path.join(options.webapps,app,'dist')
+    const appBase  = path.join(options.webapps,app)
+    const appRoute = path.join('/', app)
     
     if ( !fs.statSync(appBase).isDirectory() )
         return
@@ -84,14 +83,11 @@ const bootstrapAPI = function(app) {
     process.stdout.write ('Application '+chalk.bold.white(app)+chalk.bold.white('\t=> ')+chalk.cyan('API '))
             
     // Serve Angular 5+ dist dir
-    if ( fs.existsSync(appDist) ) {
-        srv.use(appRoute, express.static( appDist, {maxAge: options.cacheAge} ))
-    }
+    srv.use(appRoute, express.static( appDist, {maxAge: options.cacheAge} ))
     
     // Serve API
     if ( !fs.existsSync(appAPI) ) {
         process.stdout.write(chalk.gray('none\n'))
-//        return 
     } else {
         fs.readdirSync(appAPI)
             .filter ( (f) => fs.statSync(path.join(appAPI,f)).isDirectory() )
@@ -108,21 +104,22 @@ const bootstrapAPI = function(app) {
                     const Router = require(path.join(__dirname,appAPI,vers,r))   
 
                     if ( options.printAPI ) {
-                        ListRoutes({ prefix: '=> '+route }, '\nAPI v'+vers+':\t'+scrpt, Router )
+                        listRoutes({ prefix: '=> '+route }, '\nAPI v'+vers+':\t'+scrpt, Router )
                     }
 
                     srv.use ( route, Router )
                 })
             })
     }
-}
+});
 
-// Load applications
-fs.readdirSync(webapps).forEach(bootstrapAPI);
 
+// printAPI
 if ( options.printAPI ) {
     process.exit(0);
 }
+
+
 
 const appSrv = options.http2 ? spdy.createServer({
         ca: fs.readFileSync(options.certRoot+'/'+options.certFile.ca),
@@ -148,25 +145,14 @@ const io = require('socket.io').listen(
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-fs.readdirSync(webapps).forEach ( function(app) {
-    if ( !fs.statSync (webapps+'/'+app).isDirectory() ) {
+fs.readdirSync(options.webapps).forEach ( function(app) {
+    if ( !fs.statSync (options.webapps+'/'+app).isDirectory() ) {
         return
     }
     
     // Register generic event handlers
-    const ioApp = io.of('/'+app)
-        
-    ioApp.on('connection', function (socket) {
-        const emit = function (evt) {
-            return function(data) {
-                ioApp.emit(evt, data)
-            }
-    }
-        
-        socket.on ('mooring',    emit('mooring'   ) )
-        socket.on ('started',    emit('started'   ) )
-        socket.on ('updated',    emit('updated'   ) )
-        socket.on ('requested',  emit('requested' ) )
-        socket.on ('progressed', emit('progressed') )
+    const ioApp = io.of('/'+app)        
+    ioApp.on('connection', function (socket) {        
+        _.each ( options.events, (e) => socket.on (e, (d) => { ioApp.emit(e,d) }) );   
     })
 })
