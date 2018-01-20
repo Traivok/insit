@@ -1,16 +1,16 @@
 'use strict'
 
-const getopt = require('node-getopt-long')
-const url    = require('url')
+const getopt = require('node-getopt-long');
+const url    = require('url');
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 const defaults = {
     serverPort  : 3001,
     serverName  : 'inkas - NYX Knowledge Application Server', 	    
+    appName     : 'tmsa1',
     copyright   : 'Copyright 2015 (c) Antonio A. Russo',
     logFormat   : 'combined',
-    webapps     : './webapps',
     cors        : false,
     http2       : false,
     printAPI    : false,
@@ -21,7 +21,7 @@ const defaults = {
     certFile    : { ca:     'chain.pem',
                     key:    'privkey.pem',
                     cert:   'fullchain.pem' }
-}
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -38,20 +38,20 @@ const options =  getopt.configure([
 	commandVersion: 3.1,
 	helpPrefix    : defaults.serverName,
 	helpPostfix   : defaults.copyright,	
-	defaults      : defaults }).process()
+	defaults      : defaults }).process();
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-const pgURI = url.parse(options.dbConn)
+const pgURI = url.parse(options.dbConn);
 
 options.pgConn = {
 	user: pgURI.auth,
 	host: pgURI.hostname,
 	database: pgURI.pathname.replace(/^\//,'')
-}
+};
 
 
 options.knex = require('knex')({client: 'pg', connection: options.pgConn, debug: false });
 
-module.exports = options
+module.exports = options;
