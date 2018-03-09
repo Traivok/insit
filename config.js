@@ -8,7 +8,7 @@ const url    = require('url');
 const defaults = {
     serverPort  : 3001,
     serverName  : 'inkas - NYX Knowledge Application Server', 	    
-    appName     : 'tmsa1',
+    appName     : 'insit',
     copyright   : 'Copyright 2015 (c) Antonio A. Russo',
     logFormat   : 'combined',
     cors        : false,
