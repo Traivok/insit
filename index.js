@@ -10,6 +10,7 @@ const compression = require('compression');
 const listRoutes  = require('express-list-routes');
 const session     = require('express-session');
 const pgSession   = require('connect-pg-simple')(session);
+const history     = require('connect-history-api-fallback');
 
 const express	  = require('express');
 const morgan      = require('morgan');
@@ -28,6 +29,9 @@ morgan.token('http-version', function getHttpVersionToken(req){
 // Start express.js
 const srv = express();
 srv.use(compression());
+
+srv.use(history({rewrites: [{ from: /^\/api.*$/,
+                                to: c => c.parsedUrl.pathname }] } ));
 
 // Set render engine to AUTH
 srv.use(log);
