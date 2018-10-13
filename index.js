@@ -15,6 +15,7 @@ const history     = require('connect-history-api-fallback');
 const express	  = require('express');
 const morgan      = require('morgan');
 const bodyParser  = require('body-parser');
+const xmlParser = require('express-xml-bodyparser');
 
 const options = require('./config.js');
 
@@ -39,6 +40,7 @@ console.log( chalk.bold.yellow('Starting %s'), chalk.bold.yellow(options.serverN
 
 srv.use(bodyParser.json());
 srv.use(bodyParser.urlencoded({extended: true}));
+srv.use(xmlParser());
 
 srv.use(session({saveUninitialized: false, 
                  secret: options.serverName, 
