@@ -48,7 +48,7 @@ srv.use(session({saveUninitialized: false,
                  store : new pgSession({ pg: pg, 
                                   tableName: 'sessions', 
                                  schemaName: 'auth', 
-                                  conString: options.dbConn
+                                  conObject: options.pgConn
                                        })
 }));
 
