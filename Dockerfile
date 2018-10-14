@@ -9,8 +9,13 @@ USER inkas
 
 WORKDIR /usr/inkas
 RUN git clone https://github.com/aarusso-nyx/insit.git
-WORKDIR /usr/inkas/insit
 
+WORKDIR /usr/inkas/insit
 RUN npm install 
+
+WORKDIR /usr/inkas/insit/web
+RUN npm install 
+
+WORKDIR /usr/inkas/insit
 
 CMD ["npm", "start"]

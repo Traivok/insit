@@ -16,7 +16,7 @@ const defaults = {
     printAPI    : false,
     verbose     : false,
     cacheAge    : 86400000,
-    dbConn      : process.env.PG_CONNECTION_STRING,    
+//    dbConn      : process.env.PG_CONNECTION_STRING,    
     certRoot    : process.env.SSL_DIR,
     certFile    : { ca:     'chain.pem',
                     key:    'privkey.pem',
@@ -46,11 +46,18 @@ const options =  getopt.configure([
 const pgURI = url.parse(options.dbConn);
 
 options.pgConn = {
-	user: pgURI.auth,
-	host: pgURI.hostname,
-	database: pgURI.pathname.replace(/^\//,'')
+	user:     process.env.PG_USER,
+	host:     process.env.PG_HOST,
+	database: process.env.PG_DB,
+    password: process.env.PG_PASS,
+//	user:     pgURI.auth,
+//	host:     pgURI.hostname,
+//	database: pgURI.pathname.replace(/^\//,'')
+//    password: process.env.PG_PASS,
 };
 
+//console.log(options);
+//process.exit(0);
 
 options.knex = require('knex')({client: 'pg', connection: options.pgConn, debug: false });
 
