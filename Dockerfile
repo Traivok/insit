@@ -2,7 +2,10 @@ FROM node:8
 
 EXPOSE 4040
 
-ENV PG_CONNECTION_STRING='postgres://inkas@localhost/inkas'
+ENV PG_DB='inkas'
+ENV PG_USER='inkas'
+ENV PG_HOST='insit-db'
+ENV PG_PASS='desg44'
 
 RUN useradd -ms /bin/bash -d /usr/inkas inkas
 USER inkas
