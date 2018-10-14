@@ -1,0 +1,112 @@
+<div fxLayout="row" fxLayoutGap="16px" *ngIf="event">
+    <mat-card fxFlex="60%" fxLayout="column" fxLayoutAlign="space-between">
+        <mat-card-header fxLayoutAlign="start center">
+            <a mat-icon-button [routerLink]="['..']"><mat-icon >arrow_back</mat-icon></a>
+            <mat-icon fxFlexOffset="1.5em"
+                      mat-icon-button 
+                      [ngStyle]="{'color': event.severity.bgColor}">fiber_manual_record</mat-icon>
+            <div fxFlexOffset="0.5em">
+                <span class="mat-h2">Detalhes</span>
+            </div>
+        </mat-card-header>
+
+        <mat-list>
+            <mat-list-item>
+                <strong fxFlex="25%" class="text-right">Evento:</strong>
+                <span fxFlex fxFlexOffset="2em">{{event.event_id}}</span>
+            </mat-list-item>
+
+            <mat-list-item>
+                <strong fxFlex="25%" class="text-right">Notificado em:</strong>
+                <span fxFlex fxFlexOffset="2em">{{event.created_at | date:'medium'}}</span>
+            </mat-list-item>
+
+            <mat-list-item>
+                <strong fxFlex="25%" class="text-right">Natureza:</strong>
+                <span fxFlex fxFlexOffset="2em">{{event.eventtype.eventtype_desc}}</span>
+                <mat-icon fxFlexOffset="2em">{{event.eventtype.icon}}</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item>
+                <strong fxFlex="25%" class="text-right">Bairro:</strong>
+                <span fxFlex fxFlexOffset="2em">{{event.bairro?.geo_name}} ({{event.bairro?.regadm?.geo_name}})</span>
+            </mat-list-item>
+
+            <mat-list-item>
+                <strong fxFlex="25%" class="text-right">Localização:</strong>
+                <span fxFlex fxFlexOffset="2em">
+                    {{ [event.lat, event.lon] | latLon }}
+                </span>
+                <mat-icon fxFlexOffset="2em">place</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item>
+                <strong fxFlex="25%" class="text-right">Situação:</strong>
+                <mat-form-field floatPlaceholder='never' fxFlex="50%" fxFlexOffset="2em">
+                    <mat-select [(ngModel)]="event.eventstatus_id">
+                        <mat-option *ngFor="let es of eventstatii" [value]="es.eventstatus_id">
+                        {{ es.eventstatus_desc }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span fxFlex></span>
+                <mat-icon fxFlexOffset="2em">{{event.status.icon}}</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item>
+                <strong fxFlex="25%" class="text-right">Prioridade:</strong>
+                <mat-form-field floatPlaceholder='never' fxFlex="50%" fxFlexOffset="2em">
+                    <mat-select [(ngModel)]="event.severity_id">
+                        <mat-option *ngFor="let s of severities" [value]="s.severity_id">
+                        {{ s.severity_desc }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>     
+                <span fxFlex></span>
+                <mat-icon fxFlexOffset="2em">access_time</mat-icon>
+            </mat-list-item>
+        </mat-list>
+
+        <mat-form-field fxFlex style="padding-top: 16px">
+            <textarea rows="10" disabled matInput 
+                      placeholder="Relato da Ocorrência"
+                      [value]="event.description"></textarea>
+        </mat-form-field>
+        
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end">
+            <button mat-button (click)="undo()">Desfazer</button>
+            <button mat-button (click)="save()">Salvar</button>
+        </mat-card-actions>
+    </mat-card>            
+
+    
+    <mat-card fxFlex="40%"  fxLayout="column" fxLayoutAlign="start">
+        <mat-card-header>
+            <span class="mat-h2">Media Enviada</span>
+        </mat-card-header>
+
+        <mat-list>
+            <mat-list-item *ngFor="let m of event.files">
+                <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                    <button mat-icon-button matTooltip="Apagar" disabled
+                            *ngIf="!m.sent" (click)="drop(m)">
+                        <mat-icon id="mobile-stop">highlight_off</mat-icon>
+                    </button>
+                    
+                    <div fxFlex="20%" [ngSwitch]="m.mimetype" class="text-center">
+                        <span *ngSwitchCase="'image/png'">Imagem</span>
+                        <span *ngSwitchCase="'video/webm'">Video</span>
+                        <span *ngSwitchCase="'audio/webm'">Audio</span>
+                        <span *ngSwitchDefault>Não Reconhecido</span>
+                    </div>
+
+                    <span fxFlex="50%">{{m.created_at | date:'medium'}}</span>
+                    <button mat-icon-button matTooltip="Visualizar" 
+                            (click)="show(m)">
+                        <mat-icon id="mobile-stop">play_circle_outline</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
+        </mat-list>      
+    </mat-card>
+</div>

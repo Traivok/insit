@@ -1,0 +1,127 @@
+<div id="aspects-config" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-around start">
+
+    <mat-card fxFlex="40%" fxFlexFill>
+        <mat-card-header>
+            <h1 fxFlex>Aspectos</h1>
+            <button mat-icon-button matToolTip="Novo Aspecto"
+                    (click)="create()">
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        
+        <mat-list [sortablejs]="aspects" [sortablejsOptions]="options">
+            <mat-list-item *ngFor="let a of aspects">
+                <div fxFlex fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="space-between center">
+                    <button mat-icon-button (click)="icon(a)" [disabled]="!a.editing">
+                        <mat-icon class="aspect-handle">{{a.icon}}</mat-icon>
+                    </button>
+                
+                    <ng-container *ngIf="!a.editing">
+                        <span fxFlex>{{a.aspect_desc}}</span>
+
+                        <button mat-icon-button
+                                 matTooltip="Editar"
+                                 [disabled]="!!original"        
+                                 (click)="edit(a)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button
+                                [disabled]="!!original"        
+                                matTooltip="Deletar"
+                                (click)="drop(a)">
+                            <mat-icon>remove_circle_outline</mat-icon>
+                        </button>                       
+                    </ng-container>
+
+                    <ng-container *ngIf="a.editing">
+                        <mat-form-field floatPlaceholder='never' fxFlex>
+                            <input matInput type="text"
+                                   (keyup)="change(a)"
+                                   [(ngModel)]="a.aspect_desc">
+                        </mat-form-field>
+
+                        <button mat-icon-button 
+                                [disabled]="!a.dirty"
+                                (click)="save(a);">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="quit(a)">
+                            <mat-icon>highlight_off</mat-icon>
+                        </button>
+                    </ng-container>        
+                </div>
+            </mat-list-item>
+        </mat-list>    
+    </mat-card>
+
+    <mat-card fxFlex fxFlexFill>
+        <mat-card-header>
+            <h1>Escalas</h1>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+    
+        <mat-list>
+            <mat-list-item>
+                <div fxFlex fxLayout="row" fxLayoutGap="2em" fxLayoutAlign="space-between end">
+                    <span fxFlex="10%"><strong>Nota</strong></span>
+                    <span fxFlex="15%" class="text-center"><strong>Cor <small>(texto)</small></strong></span>
+                    <span fxFlex="15%" class="text-center"><strong>Cor <small>(fundo)</small></strong></span>
+                    <span fxFlex><strong>Mensagem</strong></span>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            
+            <mat-list-item *ngFor="let s of scales">
+                <div fxFlex fxLayout="row" fxLayoutGap="2em" fxLayoutAlign="space-between center">
+                    <span fxFlex="10%" class="grade text-center"
+                          [style.color]="s.fgColor"
+                          [style.background]="s.bgColor">
+                        <strong fxFlex>{{s.grade}}</strong>
+                    </span>
+                    <input fxFlex="15%"
+                           [disabled]="!s.editing" 
+                           [cpOKButton]="true"
+                           [cpCancelButton]="true"
+                           [(colorPicker)]="s.fgColor" 
+                           [style.color]="s.bgColor"
+                           [style.background]="s.fgColor"/>
+
+                    <input fxFlex="15%"
+                           [disabled]="!s.editing"
+                           [cpCancelButton]="true"
+                           [cpOKButton]="true"
+                           [cpOutputFormat]="'rgba'"
+                           [style.color]="s.fgColor"
+                           [(colorPicker)]="s.bgColor" 
+                           [style.background]="s.bgColor"/>
+
+                    <mat-form-field floatPlaceholder='never' fxFlex="40%">
+                        <input matInput fxFlex type="text"
+                               [disabled]="!s.editing" 
+                               [(ngModel)]="s.message">
+                    </mat-form-field>
+                    
+                    <div fxFlex="15%">
+                    <ng-container *ngIf="!s.editing">
+                        <button mat-icon-button
+                                 matTooltip="Editar"
+                                 (click)="touch(s)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="s.editing">
+                        <button mat-icon-button (click)="update(s)">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="done(s)">
+                            <mat-icon>highlight_off</mat-icon>
+                        </button>
+                    </ng-container>                    
+                    </div>
+                </div>                
+            </mat-list-item>
+        </mat-list>    
+    </mat-card>
+</div>    

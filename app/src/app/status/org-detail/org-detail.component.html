@@ -1,0 +1,43 @@
+<mat-card fxLayout="column" fxLayoutAlign="space-between">
+    <mat-card-title fxLayout="row" class="detail-status-title">
+        <span><a class="h3" [routerLink]="['..']"><mat-icon>arrow_back</mat-icon></a></span>
+        <span fxFlex>{{org?.org_name}}</span>
+        <span>{{org?.org_sigla}}<a href="{{org?.url}}"><mat-icon>open_in_new</mat-icon></a></span>
+    </mat-card-title>
+    
+    <mat-card-subtitle fxLayout="row" class="detail-status-subtitle">
+        <span fxFlex><strong>Responsável:</strong>&nbsp;&nbsp;<span>{{org?.chief}}</span></span>
+        <span>{{org?.org_type}}</span>
+    </mat-card-subtitle>
+    
+    <div class="detail-status-bar">
+        <insit-status fxFlex="80%" fxFlexOffset="10%" [status]="org?.status"></insit-status>
+    </div>    
+</mat-card>
+
+<mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+        <mat-icon>tune</mat-icon>&nbsp;&nbsp;<span>Avaliação</span>
+    </mat-expansion-panel-header>
+
+    <mat-list fxFlex="80%" fxFlexOffset="10%">
+        <mat-list-item *ngFor="let a of org?.status" class="detail-status-eval">
+            <span fxFlex="15%"><mat-icon>{{a.icon}}</mat-icon><span class="detail-status-aspect">{{a.aspect_desc}}</span></span>
+            <mat-checkbox [(ngModel)]="a.has_aspect" (change)="save(a)"></mat-checkbox>
+            <ng-container *ngIf="a.has_aspect">
+            <mat-slider class="detail-status-slider" fxFlex min="0" max="10" step="1" 
+                        [disabled]="!a.has_aspect"
+                        [(ngModel)]="a.grade"></mat-slider>
+            <button (click)="change(a)" [disabled]="!a.has_aspect"><mat-icon >save</mat-icon></button>
+
+            <div fxFlexOffset="5%">
+                    <a mat-icon-button [routerLink]="[a.aspect_id]"         matTooltip="Mostrar Respostas"><mat-icon >list</mat-icon></a>
+                    <a mat-icon-button [routerLink]="[a.aspect_id+'/edit']" matTooltip="Editar Questões"><mat-icon >edit</mat-icon></a>
+                    <a mat-icon-button [routerLink]="[a.aspect_id+'/fill']" matTooltip="Responder Questionário"><mat-icon >assignment_turned_id</mat-icon></a>
+            </div>
+            </ng-container>
+        </mat-list-item>
+    </mat-list>
+</mat-expansion-panel>
+
+

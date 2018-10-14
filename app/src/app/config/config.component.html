@@ -1,0 +1,25 @@
+<mat-card class="mat-typography">
+    <mat-card-header fxLayout="row" fxLayoutAlign="space-between" fxLayoutOffset="2em" fxLayoutGap="2em">
+        <button mat-raised-button fxFlex routerLinkActive="active" [routerLink]="['aspects']">
+            Aspectos Organizacionais
+        </button>
+
+        <button mat-raised-button fxFlex routerLinkActive="active" [routerLink]="['orgs']">
+            Unidades Organizacionais
+        </button>
+
+        <button mat-raised-button fxFlex routerLinkActive="active" [routerLink]="['events']">
+            Propriedades de Eventos
+        </button>
+
+        <button mat-raised-button fxFlex routerLinkActive="active" [routerLink]="['geos']">
+            Área de Interesse
+        </button>
+
+        <button mat-raised-button fxFlex routerLinkActive="active" [routerLink]="['media']">
+            Media (twitter)
+        </button>
+
+    </mat-card-header>
+    <router-outlet></router-outlet>
+</mat-card>

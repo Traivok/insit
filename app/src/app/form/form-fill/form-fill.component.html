@@ -1,0 +1,81 @@
+<div fxLayout="column">
+    <mat-toolbar>
+        <a mat-icon-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon></a>
+        <span fxFlex="5%"></span>
+         <mat-icon>{{subject?.icon}}</mat-icon>&nbsp;&nbsp;
+        <strong>{{subject?.aspect_desc}} / {{subject?.org_sigla}}</strong>
+        <strong fxFlex class="text-center">{{subject?.org_name}}</strong>
+        <button mat-icon-button (click)="save()" matTooltip="Salvar">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+    
+    <mat-card fxLayout="column" fxLayoutGap="1em">
+        <mat-accordion fxFlex multi="true">
+            <mat-expansion-panel *ngFor="let q of quiz" expanded="true">
+                <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="start center">
+                    <div>{{q.question_desc}}</div>
+                </mat-expansion-panel-header>
+                
+                <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="1em" class="view-answer">
+                    <div fxLayout="column" fxLayoutAlign="space-between">
+                        <div [ngSwitch]="q.unit_id">
+                        
+                            <!-- Check -->
+                            <mat-checkbox *ngSwitchCase="1" class="mat-icon-button"
+                                          [(ngModel)]="q.answer.value_bool">
+                            </mat-checkbox>
+                            
+                            <!-- Number -->
+                            <button *ngSwitchCase="2"
+                                    mat-icon-button matTooltip="Resposta" 
+                                    (click)="getAnswer(q)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            
+                            <!-- Date -->
+                            <button *ngSwitchCase="3"
+                                    mat-icon-button matTooltip="Data" 
+                                    (click)="getAnswer(q)">
+                                <mat-icon>event</mat-icon>
+                            </button>
+                            
+                            <!-- Image -->
+                            <button *ngSwitchCase="4"
+                                    mat-icon-button matTooltip="Imagem" 
+                                    (click)="getAnswer(q)">
+                                <mat-icon>add_a_photo</mat-icon>
+                            </button>
+                        
+                            <div *ngSwitchDefault>
+                                <mat-icon>error</mat-icon>
+                            </div>
+                        </div>
+
+                        <button mat-icon-button matTooltip="Questão"
+                                *ngIf="q.question_text" (click)="showText('Questão', q.question_text)">
+                            <mat-icon>description</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="Referência" 
+                                *ngIf="q.question_base" (click)="showText('Referência', q.question_base)" >
+                            <mat-icon>receipt</mat-icon>
+                        </button>
+                    </div>
+            
+                    <mat-form-field fxFlex>
+                        <textarea fxFlex matInput rows="5" placeholder="Resposta"
+                                  [(ngModel)]="q.answer.comment"></textarea>
+                        <mat-hint align="start"> 
+                            <div [ngSwitch]="q.unit_id">
+                                <strong *ngSwitchCase="1">Current answer: {{q.answer.value_bool}}</strong>
+                                <strong *ngSwitchCase="2">Current answer: {{q.answer.value_number}}</strong>
+                                <strong *ngSwitchCase="3">Current answer: {{q.answer.value_tstamp | date}}</strong>
+                            </div>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card>
+</div>

@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "start": "node index.js",
-    "build": "docker build . -t aarusso/inkas-insit"
+    "dockerbuild": "docker build . -t aarusso/inkas-insit",
+    "gitpush": "git push github master",
+    "gitcommit": "git commit -a -m 'auto'"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,9 @@
+#media-config {
+    margin-top: 2em;
+}
+
+mat-list-item {
+    
+    border-bottom: 1px solid lightgray;
+    margin: 30px auto;
+}

@@ -1,0 +1,65 @@
+.drawer {
+/*  width: 400px;*/
+    height: 100vh;
+/*  height: 200px;*/
+/*  margin: 10px;*/
+/*  border: 1px solid #555;*/
+}
+
+
+mat-drawer {
+    width: 240px;
+    border-right: 1px solid lightgray; 
+    height: 100vh;
+}
+
+mat-drawer > mat-nav-list {
+    padding-top: 0px;
+    height: 
+}
+
+mat-icon {
+    margin-right: 10px;
+}
+
+mat-drawer-container {
+    
+    background-color: #1d1F21;
+
+}
+
+
+.drawer {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+}
+
+.domain.active {
+    background-color: lightgray;
+    font-weight: bold;
+}
+
+.domain.disabled {
+    background-color: lightgray;
+    font-weight: bold;
+    color: gray;
+    cursor: not-allowed;
+}
+
+.domain {
+    font-size: smaller;
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+.sections {
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 16px;
+    background: rgba(0,0,0,.32);
+    color: hsla(0,0%,100%,.87);
+}

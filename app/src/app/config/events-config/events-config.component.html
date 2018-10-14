@@ -1,0 +1,155 @@
+<div id="eventtypes-config" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-around start">
+    <mat-card fxFlex="40%" fxFlexFill>
+        <mat-card-header>
+            <h1 fxFlex>Tipos de Eventos</h1>
+            <button mat-icon-button (click)="create_et()" matToolTip="Novo Tipo de Evento">
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        
+        <mat-list [sortablejs]="eventtypes" [sortablejsOptions]="options_et">
+            <mat-list-item *ngFor="let a of eventtypes">
+                <div fxFlex fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="space-between center">
+                    <button mat-icon-button (click)="icon(a)" [disabled]="!a.editing">
+                        <mat-icon class="eventtypes-handle">{{a.icon}}</mat-icon>
+                    </button>                
+                    <ng-container *ngIf="!a.editing">
+                        <span fxFlex>{{a.eventtype_desc}}</span>
+
+                        <button mat-icon-button
+                                matTooltip="Editar"
+                                [disabled]="!!original_et"        
+                                (click)="edit_et(a)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button
+                                matTooltip="Deletar"
+                                [disabled]="!!original_et"        
+                                (click)="drop_et(a)">
+                            <mat-icon>remove_circle_outline</mat-icon>
+                        </button>                       
+                    </ng-container>
+
+                    <ng-container *ngIf="a.editing">
+                        <mat-form-field floatPlaceholder='never' fxFlex>
+                            <input matInput #desc type="text"
+                                   (change)="change(a)" 
+                                   [(ngModel)]="a.eventtype_desc">
+                        </mat-form-field>
+
+                        <button mat-icon-button 
+                                [disabled]="!a.dirty"
+                                (click)="save_et(a, desc, icon);">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="quit_et(a)">
+                            <mat-icon>highlight_off</mat-icon>
+                        </button>
+                    </ng-container>        
+                </div>
+            </mat-list-item>
+        </mat-list>    
+    </mat-card>
+
+    
+    <div fxFlex fxLayout="column" fxLayoutGap="16px">
+        <mat-card fxFlex fxFlexFill>
+            <mat-card-header>
+                <h1>Prioridades</h1>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-list>
+                <mat-list-item *ngFor="let s of severities">
+                    <div fxFlex fxLayout="row" fxLayoutGap="2em" fxLayoutAlign="space-between center">
+                        <div fxFlex="25%">
+                            <input fxFlex
+                                   (change)="touch(s)"
+                                   [cpOKButton]="true"
+                                   [cpCancelButton]="true"
+                                   [(colorPicker)]="s.fgColor" 
+                                   [style.color]="s.bgColor"
+                                   [style.background]="s.fgColor"/>
+                        </div>
+
+                        <div fxFlex="25%">
+                            <input fxFlex
+                                   (change)="touch(s)"
+                                   [cpCancelButton]="true"
+                                   [cpPosition]="left"
+                                   [cpOKButton]="true"
+                                   [cpOutputFormat]="'rgba'"
+                                   [style.color]="s.fgColor"
+                                   [(colorPicker)]="s.bgColor" 
+                                   [style.background]="s.bgColor"/>
+                        </div>
+
+                        <span> => </span>
+
+                        <span fxFlex class="text-left grade"
+                               [style.color]="s.fgColor"
+                               [style.background]="s.bgColor">{{s.severity_desc}}</span>
+
+                        <button mat-icon-button 
+                                [disabled]="!s.dirty"
+                                (click)="update(s)">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                    </div>                
+                </mat-list-item>
+            </mat-list>    
+        </mat-card>
+    
+        <mat-card fxFlex="40%" fxFlexFill>
+            <mat-card-header>
+                <h1 fxFlex>Status do Eventos</h1>
+                <button mat-icon-button (click)="create_es()" matToolTip="Novo Status">
+                    <mat-icon>add_circle_outline</mat-icon>
+                </button>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-list [sortablejs]="eventstatii" [sortablejsOptions]="options_es">
+                <mat-list-item *ngFor="let a of eventstatii">
+                    <div fxFlex fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="space-between center">
+                        <button mat-icon-button (click)="icon(a)" [disabled]="!a.editing">
+                            <mat-icon class="eventstatii-handle">{{a.icon}}</mat-icon>
+                        </button>                
+                        <ng-container *ngIf="!a.editing">
+                            <span fxFlex>{{a.eventstatus_desc}}</span>
+
+                            <button mat-icon-button
+                                    matTooltip="Editar"
+                                    [disabled]="!!original_es"        
+                                    (click)="edit_es(a)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button
+                                    matTooltip="Deletar"
+                                    [disabled]="!!original_es"        
+                                    (click)="drop_es(a)">
+                                <mat-icon>remove_circle_outline</mat-icon>
+                            </button>                       
+                        </ng-container>
+
+                        <ng-container *ngIf="a.editing">
+                            <mat-form-field floatPlaceholder='never' fxFlex>
+                                <input matInput #desc type="text"
+                                       (change)="change(a)" 
+                                       [(ngModel)]="a.eventstatus_desc">
+                            </mat-form-field>
+
+                            <button mat-icon-button 
+                                    [disabled]="!a.dirty"
+                                    (click)="save_es(a, desc, icon);">
+                                <mat-icon>save</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="quit_es(a)">
+                                <mat-icon>highlight_off</mat-icon>
+                            </button>
+                        </ng-container>        
+                    </div>
+                </mat-list-item>
+            </mat-list>    
+        </mat-card>
+    </div>
+</div>    

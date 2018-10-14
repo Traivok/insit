@@ -1,0 +1,30 @@
+<div fxLayout="column">
+    <mat-toolbar>
+        <a mat-icon-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon></a>
+        <span fxFlex="5%"></span>
+        <mat-icon>{{subject?.icon}}</mat-icon>&nbsp;&nbsp;
+        <strong>{{subject?.aspect_desc}} / {{subject?.org_sigla}}</strong>
+        <strong fxFlex class="text-center">{{subject?.org_name}}</strong>
+    </mat-toolbar>
+    
+    <mat-card>
+        <mat-list>
+            <mat-list-item>
+                <strong fxFlex="20%">Status</strong>
+                <strong fxFlex="20%">Avaliação em</strong>
+                <strong fxFlex="20%">Submetido por</strong>
+                <strong fxFlex="20%">Nota</strong>
+            </mat-list-item>
+                        
+            <mat-list-item *ngFor="let f of fills">
+                <span fxFlex="20%">
+                    <mat-icon *ngIf="f.accepted" style="color: darkgreen">check_circle</mat-icon>
+                    <mat-icon *ngIf="!f.accepted" style="color: firebrick">error</mat-icon>
+                </span>
+                <span fxFlex="20%"><a [routerLink]="[f.fill_id]">{{f.created_at | date: medium}}</a></span>
+                <span fxFlex="20%">{{f.created_by || 'Anonymous'}}</span>
+                <span fxFlex="20%">{{f.grade || 'N/A'}}</span>
+            </mat-list-item>
+        </mat-list>
+    </mat-card>    
+</div>

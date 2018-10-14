@@ -23,5 +23,4 @@ RUN npm install
 
 WORKDIR /usr/inkas/insit
 
-#CMD ["node", "start"]
-ENTRYPOINT ['node', '.']
+CMD ["node", "index.js"]

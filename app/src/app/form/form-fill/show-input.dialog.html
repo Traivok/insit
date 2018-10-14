@@ -1,0 +1,25 @@
+<mat-dialog-content>
+    <div [ngSwitch]="q.unit_id">
+        <mat-form-field *ngSwitchCase="2">
+            <input matInput type="number" [(ngModel)]="value" placeholder="Value">
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="3">
+            <input matInput
+                 [disabled]="!!q.answer_id"  
+                 [matDatepicker]="picker" 
+                 [(ngModel)]="value">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button *ngSwitchCase="4"
+                mat-icon-button matTooltip="Send photo" 
+                (click)="sendPic('foto')">
+            <mat-icon>add_a_photo</mat-icon>
+        </button>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="end" *ngIf="q.unit_id!=4">
+    <button mat-raised-button [mat-dialog-close]="value">Close</button>
+</mat-dialog-actions>

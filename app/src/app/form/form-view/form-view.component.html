@@ -1,0 +1,67 @@
+<div fxLayout="column" fxLayoutGap="1em">
+    <mat-toolbar>
+        <a mat-icon-button [routerLink]="['../']"><mat-icon>arrow_back</mat-icon></a>
+
+        <span fxFlex="5%"></span>
+        <mat-icon>{{subject?.icon}}</mat-icon>&nbsp;&nbsp;
+        <strong>{{subject?.aspect_desc}} / {{subject?.org_sigla}}</strong>
+        <strong fxFlex class="text-center">{{subject?.org_name}}</strong>        
+    </mat-toolbar>
+    
+
+    <mat-card fxLayout="row">
+        <mat-icon *ngIf="fill?.accepted" style="color: darkgreen">check_circle</mat-icon>
+        <mat-icon *ngIf="!fill?.accepted" style="color: firebrick">error</mat-icon>
+        <div class="form-view-grade">Nota: {{fill?.grade || 'N/A' }}</div>
+        <div fxFlex>
+            Preenchido por <strong>{{fill?.created_by || 'Anonymous' }}</strong>
+            em {{fill?.created_at | date}}</div>
+    </mat-card>
+    
+    <mat-card>
+        <mat-list>
+            <mat-list-item>
+                <div fxFlex fxLayout="row">
+                    <div fxFlex="5%"  class="text-center"><strong>Status</strong></div>
+                    <div fxFlex="30%" class="text-left"><strong>Questão</strong></div>
+                    <div fxFlex="30%" class="text-left"><strong>Comentário</strong></div>
+                    <div fxFlex="15%" class="text-center"><strong>Resposta</strong></div>
+                    <div fxFlex="20%" class="text-left"><strong>Critério</strong></div>
+                </div>
+            </mat-list-item>
+            
+            <mat-list-item *ngFor="let a of fill?.answers">
+                <div fxFlex fxLayout="row">
+                    <div fxFlex="5%" class="text-center">
+                        <mat-icon *ngIf="a.accepted" style="color: darkgreen">check_circle</mat-icon>
+                        <mat-icon *ngIf="!a.accepted &&  a.question.mandatory" style="color: firebrick">error</mat-icon>
+                        <mat-icon *ngIf="!a.accepted && !a.question.mandatory" style="color: gold">warning</mat-icon>
+                    </div>
+                    <div fxFlex="30%" class="text-left">{{a.question.question_desc}}</div>
+                    <div fxFlex="30%" class="text-left">{{a.comment}}</div>
+                    <div fxFlex="15%" class="text-center"
+                         [ngSwitch]="a.question.unit_id" class="text-center">
+                        <strong *ngSwitchCase="1"><mat-icon>{{a.value_bool ? 'check_box' : 'check_box_outline_blank'}}</mat-icon></strong>
+                        <strong *ngSwitchCase="2">{{a.value_number}}</strong>
+                        <strong *ngSwitchCase="3">{{a.value_tstamp | date}}</strong>
+                    </div>
+                    <div fxFlex="20%" class="text-left"
+                         [ngSwitch]="a.question.unit_id">
+                        <div *ngSwitchCase="1">
+                            <span>deve ser {{a.question.criterium.criterium_caption}}</span>
+                        </div>
+                        <div *ngSwitchCase="2">
+                            <span>{{a.question.criterium.criterium_caption}} {{a.question.number_ref}}</span>
+                            <span *ngIf="a.question.number_upper"> e {{a.question.number_upper}}</span>
+                        </div>
+                        <div *ngSwitchCase="3">
+                            <span>{{a.question.criterium.criterium_caption}} {{a.question.tstamp_ref | date}}</span>
+                            <span *ngIf="a.question.number_upper"> e {{a.question.tstamp_upper | date}}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </mat-card>
+</div>

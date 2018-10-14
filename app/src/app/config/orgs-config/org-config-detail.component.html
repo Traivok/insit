@@ -1,0 +1,41 @@
+<mat-card id="orgs-config">
+    <mat-card-header>
+        <a [routerLink]="['..']"><mat-icon>arrow_back</mat-icon></a>&nbsp;&nbsp;
+        <span fxFlex>{{orgForm.value.org_name}}</span>
+        <button mat-icon-button (click)="save()"><mat-icon>save</mat-icon></button>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    
+    <form [formGroup]="orgForm" novalidate>
+        <div fxLayout="row" fxLayoutGap="2em" class="form-row">
+            <mat-form-field floatPlaceholder='always' fxFlex>
+                <input matInput type="text" formControlName="org_name"
+                       placeholder="Órgão">
+            </mat-form-field>
+
+            <mat-form-field floatPlaceholder='always' fxFlex="20%">
+                <input matInput type="text" formControlName="org_sigla"
+                       placeholder="Sigla">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="2em" class="form-row">
+            <mat-form-field floatPlaceholder='always' fxFlex>
+                <input matInput type="text" formControlName="org_type"
+                       placeholder="Tipo">
+            </mat-form-field>
+
+            <mat-form-field floatPlaceholder='always' fxFlex>
+                <input matInput type="text" formControlName="chief"
+                       placeholder="Responsável">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="2em" class="form-row">
+            <mat-form-field floatPlaceholder='always' fxFlex>
+                <input matInput type="text" formControlName="url"
+                       placeholder="URL">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-card>

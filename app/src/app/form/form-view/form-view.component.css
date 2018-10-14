@@ -1,0 +1,13 @@
+mat-card { 
+    margin-left: 16px; 
+    margin-right: 16px; 
+}
+
+mat-list-item {
+    border-bottom: 1px solid lightgray;
+}
+
+.form-view-grade {
+    background-color: lightgray;
+    margin: auto 30px;
+}

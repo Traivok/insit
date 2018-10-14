@@ -1,0 +1,27 @@
+<mat-drawer-container class="drawer">
+    <mat-drawer mode="side" opened="true" >
+    
+        
+        
+        <mat-nav-list >
+            
+            <ng-container *ngFor="let macro of dtb">
+                
+                
+            <h3 class="sections">{{macro.sigla}} - {{macro.toponimia}}</h3>
+                <div fxLayout="column">
+                <ng-container *ngFor="let e of macro.estados">
+                    <div mat-list-item class="domain">
+                        {{e.sigla}} - {{e.toponimia}}
+                    </div>
+                
+                </ng-container>
+                </div>
+            
+            </ng-container>
+            
+        </mat-nav-list>
+    
+    </mat-drawer>
+  <mat-drawer-content>Main content</mat-drawer-content>
+</mat-drawer-container>

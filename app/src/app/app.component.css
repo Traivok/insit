@@ -1,0 +1,85 @@
+footer > span {
+    padding-right: 20px;
+    float: right;
+    font-size: 11px;
+}
+
+footer > a > img {
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+.page {
+    min-height: 100vh;
+}
+
+mat-sidenav {
+    width: 240px;
+    border-right: 1px solid lightgray; 
+}
+
+mat-sidenav > mat-nav-list {
+    padding-top: 0px;
+}
+
+mat-icon {
+    margin-right: 10px;
+}
+
+mat-sidenav-container {
+    
+    background-color: #1d1F21;
+
+}
+
+
+.sidenav {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+}
+
+.domain.active {
+    background-color: lightgray;
+    font-weight: bold;
+}
+
+.domain.disabled {
+    background-color: lightgray;
+    font-weight: bold;
+    color: gray;
+    cursor: not-allowed;
+}
+
+.domain {
+    font-size: smaller;
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+.sections {
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 16px;
+    background: rgba(0,0,0,.32);
+    color: hsla(0,0%,100%,.87);
+}
+
+.avatar {
+    height: 72px;
+    width: 72px;
+    border-radius: 100%;
+}
+
+.login { 
+
+    margin: 20px;
+
+}
+
+#logo {
+    height: 60px;
+}

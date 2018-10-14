@@ -1,0 +1,11 @@
+
+<div fxFlex fxLayout="row wrap" fxLayoutAlign="space-around" class="status-bar">
+    <ng-container *ngFor="let a of status">
+        <div fxLayout="column" *ngIf="a.has_aspect" matTooltip="{{a.aspect_desc}}+{{a.message}}" class="status-aspect" fxFlex="15%" fxLayoutAlign="center center"
+             [ngStyle]="{ 'background-color': a.bgColor, 'color': a.fgColor }"
+             [routerLink]="['/sit/'+a.aspect_id]">
+            <mat-icon class="text-center">{{a.icon}}</mat-icon>
+            <span class="text-center">{{a.grade}}</span>
+        </div>
+    </ng-container>
+</div>

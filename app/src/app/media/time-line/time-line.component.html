@@ -1,0 +1,27 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="space-around">
+    <mat-card *ngFor="let src of sources; let i=index">
+        <mat-card-header>
+            
+            <ng-container *ngIf="!src.screenName">
+                <mat-form-field [floatLabel]="always" fxFlex>
+                    <input #t matInput [placeholder]="'Perfil '+(i+1)">
+                </mat-form-field>
+            
+                <button mat-icon-button (click)="src.screenName=t.value">
+                    <mat-icon>arrow_forward</mat-icon>
+                </button>            
+            </ng-container>  
+            
+            <button *ngIf="src.screenName"
+                    mat-icon-button (click)="drop(src)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </mat-card-header>
+        <mat-card-content *ngIf="src.screenName">
+            <twitter-line [dataSrc]="{ sourceType: 'profile', screenName: src.screenName }" 
+                          [opts]="{ tweetLimit: 20 }">
+            </twitter-line>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+    </mat-card>
+</div>

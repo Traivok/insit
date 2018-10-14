@@ -1,0 +1,47 @@
+<div id="orgs-config" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-around start">
+    <mat-card fxFlex>
+        <mat-card-header>
+            <h1 fxFlex>Unidades Organizacionais</h1>
+            <a mat-icon-button [routerLink]="'new'">
+                <mat-icon>add_circle_outline</mat-icon>
+            </a>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        
+        <mat-list #target [sortablejs]="orgs" [sortablejsOptions]="options">
+            <mat-list-item *ngFor="let a of orgs" [id]="a.org_id">
+                <span fxFlex fxLayoutAlign="space-around center" >          
+                    
+                    <span fxFlex="5em" fxLayout="row" fxLayoutAlign="space-between center">
+                        <button mat-icon-button 
+                                *ngIf="a.parent_org_id"
+                                (click)="sup(a)">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <span fxFlex></span>
+                        <button mat-icon-button
+                                [disabled]="!getPrevSibling(a)"
+                                (click)="sub(a)">
+                            <mat-icon>arrow_forward</mat-icon>
+                        </button>
+                    </span>
+                    
+                    <mat-icon mat-icon-button class="orgs-handle"
+                              [fxFlexOffset]="2*a.path.length-1+'em'">
+                        reorder
+                    </mat-icon>&nbsp;&nbsp;
+                    
+                    <a fxFlex [routerLink]="[a.org_id]">
+                        <span>{{a.path | json}}</span>
+                        
+                        {{a.org_id}}.&nbsp;&nbsp;{{a.org_name}}</a>
+                    
+                    <button mat-icon-button (click)="drop(a)"
+                            [disabled]="hasChildren(a)">
+                        <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                </span>
+            </mat-list-item>
+        </mat-list>
+    </mat-card>
+</div>            

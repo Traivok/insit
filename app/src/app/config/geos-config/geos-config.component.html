@@ -1,0 +1,54 @@
+<div id="geos-config" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-around start">
+
+    <mat-card fxFlex="25%" id="estados">
+        <mat-card-header>
+            <mat-card-title><h2>Estados</h2></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-list dense>
+            <ng-container *ngFor="let m of macros">
+            <h3 matSubheader class="macro">
+                Região {{m.toponimia}}
+            </h3>
+                
+            <mat-list-item *ngFor="let e of m.estados"
+                           (click)="chooseEst(e)"
+                           [ngClass]="classEst(e)">{{e.toponimia}}</mat-list-item>    
+            </ng-container>
+        </mat-list>    
+    </mat-card>
+
+    <mat-card fxFlex="25%">
+        <mat-card-header>
+            <mat-card-title><h2>Regiões</h2></mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-list dense *ngIf="!!estado">
+            <mat-list-item (click)="selectAll()" [ngClass]="classMeso('all')">
+                <strong>Todo os municípios</strong>
+            </mat-list-item>
+            <mat-list-item (click)="selectCap()" [ngClass]="classMeso('cap')">
+                <strong>Capital - {{estado?.capital.toponimia}}</strong>
+            </mat-list-item>
+
+            <mat-list-item *ngFor="let m of estado?.meso"
+                           [ngClass]="classMeso(m)"
+                           (click)="chooseMeso(m)">{{m.toponimia}}</mat-list-item>    
+        </mat-list>
+    </mat-card>
+    
+    <mat-card fxFlex="45%">
+        <mat-card-header>
+            <mat-card-title (click)="save()">
+                <mat-icon>save</mat-icon>
+                <span class="mat-h2">Municípios</span>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-list dense *ngIf="!!meso" fxLayout="row wrap">
+            <mat-list-item *ngFor="let m of meso?.munis" fxFlex="45%">
+                <mat-checkbox [(ngModel)]="m.selected">{{m.toponimia}}</mat-checkbox>
+            </mat-list-item>    
+        </mat-list>    
+    </mat-card>
+</div>

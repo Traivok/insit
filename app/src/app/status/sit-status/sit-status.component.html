@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-list>
+        <mat-list-item>
+            <span fxFlex="10%">Avaliação</span>
+            <span fxFlex="20%">Situação</span>
+            <span>Órgão / Unidade</span>
+        </mat-list-item>
+
+        <mat-list-item *ngFor="let a of orgsit"
+                       [ngStyle]="{'background-color': a.bgColor, 'color': a.fgColor}"
+                       class="status-eval-item">
+            <span fxFlex="10%">{{a.grade}}</span>
+            <span fxFlex="20%">{{a.message}}</span>
+            <a [routerLink]="['/org/'+a.org_id]"
+               [ngStyle]="{'color': a.fgColor}">{{a.org_name}}</a>
+        </mat-list-item>
+
+    </mat-list>
+</mat-card>

@@ -1,0 +1,16 @@
+<h1 matDialogTitle fxLayout="row" fxLayoutAlign="start center">
+    <span fxFlexOffset="1em">Ícones Disponíveis</span>
+</h1>
+<mat-dialog-content>
+    <div fxFlex="row wrap">
+        <ng-container *ngFor="let i of icons">
+            <button mat-icon-button (click)="icon=i" [ngClass]="{'selected': (i == icon)}">
+                <mat-icon>{{i}}</mat-icon>
+            </button>
+        </ng-container>
+    </div>    
+</mat-dialog-content>
+<mat-dialog-actions fxFlexAlign="end" fxLayout="row" fxLayoutAlign="end">
+    <button mat-button [matDialogClose]="null">Fechar</button>
+    <button mat-button [matDialogClose]="icon">Escolher</button>
+</mat-dialog-actions>

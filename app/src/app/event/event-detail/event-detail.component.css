@@ -1,0 +1,13 @@
+mat-card {
+    margin: 16px;
+}
+
+mat-card-header {
+    margin-bottom: 16px;
+    border-bottom: 1px solid dimgray;
+}
+
+
+mat-list-item {
+    border-bottom: 1px solid lightgray;
+}

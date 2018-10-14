@@ -1,0 +1,16 @@
+#orgs-config {
+    margin-top: 2em;
+}
+    
+mat-list-item {
+    border-bottom: 1px solid lightgray;
+}
+
+
+.form-row {
+    margin-top: 2em;
+}
+
+.orgs-handle {
+    cursor: grab
+}

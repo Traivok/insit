@@ -1,0 +1,39 @@
+mat-expansion-panel,
+mat-card {
+    margin: 16px;
+}
+
+#main {
+    display: block;
+    margin: auto;
+    margin-top: 3vh;
+}
+
+#footer {
+    
+}
+
+
+
+
+#front-page-logo-nyx {
+    margin-right: 32px;
+}
+
+#front-page-link-nyx {
+/*    margin-right: 32px;*/
+}
+
+#front-page-link-dpg {
+    margin-top: 10vh;
+}
+
+#front-page-logo-dpg {
+    margin: auto;
+    display: block;
+    max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+}
+

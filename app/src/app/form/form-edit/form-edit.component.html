@@ -1,0 +1,127 @@
+<div fxLayout="column">
+    <mat-toolbar>
+        <a mat-icon-button [routerLink]="['../../']"><mat-icon>arrow_back</mat-icon></a>
+        <span fxFlex="5%"></span>
+        <mat-icon>{{subject?.icon}}</mat-icon>&nbsp;&nbsp;&nbsp;
+        <strong>{{subject?.aspect_desc}} / {{subject?.org_sigla}}</strong>
+        <strong fxFlex class="text-center">{{subject?.org_name}}</strong>
+        <button mat-icon-button (click)="qnew()" matTooltip="Nova Questão">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button (click)="save()" matTooltip="Salvar Questionário">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <mat-card fxLayout="column" fxLayoutGap="1em">
+        <mat-accordion [sortablejs]="quiz" [sortablejsOptions]="options">
+            <mat-expansion-panel *ngFor="let q of quiz">
+                <mat-expansion-panel-header fxLayout="row" fxlayoutAlign="center center">
+                    <mat-panel-title fxFlex>
+                        <mat-icon class="question-handle">reorder</mat-icon>
+                        <mat-icon class="question-handle" (click)="qdrop(q)" matTooltip="Remover">remove_circle_outline</mat-icon>
+                        <span class="question-order">{{q.question_order}}</span>
+                        <span class="question-desc">{{q.question_desc}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-card fxLayout="column">
+                    <div fxLayout="row" fxLayoutGap="1em" fxLayoutAlign="space-between center">
+                        <mat-form-field fxFlex floatPlaceholder='always'>
+                            <input matInput (change)="onChange(q)" name="question_desc" [(ngModel)]="q.question_desc" placeholder="Resumo">
+                        </mat-form-field>
+                        <mat-form-field floatPlaceholder='always'>
+                            <input matInput (change)="onChange(q)" name="weight" [(ngModel)]="q.weight" type="number" placeholder="Peso">
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field fxFlex>
+                        <textarea matInput (change)="onChange(q)" name="question_text" rows="3" [(ngModel)]="q.question_text" placeholder="Questão"></textarea>
+                    </mat-form-field>
+                    <mat-form-field fxFlex>
+                        <textarea matInput (change)="onChange(q)" name="question_base" rows="5" [(ngModel)]="q.question_base" placeholder="Referência"></textarea>
+                    </mat-form-field>                        
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+                        <mat-form-field floatPlaceholder='always'>
+                            <mat-select name="unit" placeholder="Tipo de Resposta" 
+                                        (selectionChange)="onUnitChange(q,$event)"
+                                        [(ngModel)]="q.unit" 
+                                        [compareWith]="compareFn">
+                                <mat-option *ngFor="let u of units" [value]="u">
+                                {{ u.unit_desc }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                        <mat-form-field floatPlaceholder='always'>
+                            <mat-select name="mandatory" placeholder="Requirido" [(ngModel)]="q.mandatory" >
+                                <mat-option [value]="true">Obrigatório</mat-option>
+                                <mat-option [value]="false">Opcional</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                        <ng-container *ngIf="(q.unit?.unit_id == 1 || q.unit?.unit_id == 2 || q.unit?.unit_id == 3)">
+                            <mat-form-field floatPlaceholder='always'>
+                                <mat-select placeholder="Válido quando a resposta for" 
+                                            (change)="onChange(q)" 
+                                            [(ngModel)]="q.criterium_id">
+                                    <mat-option name="criterium" *ngFor="let c of q.unit?.criteria" [value]="c.criterium_id">
+                                    {{ c.criterium_caption }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+                        
+                        <ng-container [ngSwitch]="q.unit?.unit_id">
+                            <!-- Number -->
+                            <ng-container *ngSwitchCase="2"> 
+                                <mat-form-field floatPlaceholder='always'>
+                                    <input matInput placeholder="Valor" type="number" 
+                                           (change)="onChange(q)"  
+                                           [(ngModel)]="q.number_ref">
+                                </mat-form-field>
+                                
+                                <!-- Range Input -->
+                                <ng-container *ngIf="(q.criterium_id == 9 ||  q.criterium_id == 10)">
+                                <span>&nbsp; e &nbsp;</span>
+                                <mat-form-field floatPlaceholder='always'>
+                                    <input matInput placeholder="Máximo" type="number" 
+                                           (change)="onChange(q)"  
+                                           [(ngModel)]="q.number_upper">
+                                </mat-form-field>
+                                </ng-container>    
+                            </ng-container>
+                            
+                            <!-- Date -->
+                            <ng-container *ngSwitchCase="3">
+                                <mat-form-field floatPlaceholder='always'>
+                                    <input matInput placeholder="Data" 
+                                           [matDatepicker]="tstamp_ref" 
+                                           (change)="onChange(q)" 
+                                           [(ngModel)]="q.tstamp_ref">
+                                    <mat-datepicker-toggle matSuffix [for]="tstamp_ref"></mat-datepicker-toggle>
+                                    <mat-datepicker #tstamp_ref></mat-datepicker>
+                                </mat-form-field>
+                                
+                                <!-- Range Input -->
+                                <ng-container *ngIf="(q.criterium_id == 9 ||  q.criterium_id == 10)">
+                                <span>&nbsp; e &nbsp;</span>
+                                <mat-form-field floatPlaceholder='always'>
+                                    <input matInput placeholder="Data" 
+                                           [matDatepicker]="tstamp_upper" 
+                                           (change)="onChange(q)" 
+                                           [(ngModel)]="q.tstamp_upper">
+                                    <mat-datepicker-toggle matSuffix [for]="tstamp_upper"></mat-datepicker-toggle>
+                                    <mat-datepicker #tstamp_upper></mat-datepicker>
+                                </mat-form-field> 
+                                </ng-container>    
+                            </ng-container>
+                            
+                            <!-- Check -->
+                            <ng-container *ngSwitchDefault> 
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </mat-card>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card>
+</div>

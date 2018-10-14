@@ -1,0 +1,130 @@
+<div id="mobile" fxLayout="column" fxLayoutAlign="start stretch">
+
+    <div id="mobile-header" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        
+        <span fxFlex id="mobile-title" class="mat-h2 text-center">InSit - Mobile</span>
+        
+        <button mat-icon-button matTooltip="Enviar" 
+                [disabled]="!eventtype"
+                (click)="post()">
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
+    
+    <mat-tab-group>
+        <mat-tab label="Ocorrência">
+            <div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="16px">
+                <mat-form-field id="mobile-select-geo" floatPlaceholder='always'>
+                    <mat-select placeholder="Mostrar Bairro"
+                                (change)="geoChange()"
+                                [(ngModel)]="geo">
+                        <mat-option [value]="null">
+                            <mat-icon>my_location</mat-icon>Localização Atual
+                        </mat-option>
+
+                        <mat-optgroup *ngFor="let dtb of geos"
+                                      [label]="dtb.geo_name">
+                            <mat-option *ngFor="let g of dtb.bairros" [value]="g">
+                            {{ g.geo_name }}
+                            </mat-option>
+                        </mat-optgroup>
+                    </mat-select>
+                </mat-form-field>
+
+                <div #mapElement id="mobile-map" class="mobile-body"></div>
+                
+                <mat-form-field floatPlaceholder='always'>
+                    <mat-select placeholder="Ocorrência" required
+                                [(ngModel)]="eventtype">
+                        <mat-option [value]="null">--</mat-option>
+                        <mat-option *ngFor="let e of eventtypes" [value]="e">
+                            {{e.eventtype_desc}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-tab>
+        
+        <mat-tab label="Descrição">
+            <mat-form-field fxFlexFill>
+                <textarea rows="38" matInput placeholder="Descrição da Ocorrência" 
+                          [(ngModel)]="comment"></textarea>
+            </mat-form-field>
+        </mat-tab>
+        
+        <mat-tab label="Media">
+            <div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="16px">
+                <div *ngIf="bRecording" id="mobile-media" class="mobile-body">
+                    <video id="mobile-video" #videoElement></video>
+                    <canvas id="mobile-canvas" style="display: none"
+                            width="1024" height="768"
+                            #pictureElement></canvas>
+                </div>
+                <div *ngIf="!bRecording" id="mobile-library" class="mobile-body">
+                    <mat-list dense>
+                        <mat-list-item *ngFor="let m of media">
+                            <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+                                <button mat-icon-button matTooltip="Apagar" 
+                                        *ngIf="!m.sent" (click)="drop(m)">
+                                    <mat-icon id="mobile-stop">highlight_off</mat-icon>
+                                </button>
+                                <button mat-icon-button matTooltip="Enviado"
+                                        *ngIf="m.sent">
+                                    <mat-icon id="mobile-sent">done</mat-icon>
+                                </button>
+                                <span >{{m.buffer.type}}</span>
+                                <span >{{m.buffer.size / (1024*1024) | number:'1.2-2'}} MB</span>
+                                <span >{{m.created_at | date:'medium'}}</span>
+                                <button mat-icon-button matTooltip="Visualizar" 
+                                        (click)="show(m)">
+                                    <mat-icon id="mobile-stop">play_circle_outline</mat-icon>
+                                </button>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>                    
+                </div>
+                
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <button mat-icon-button matTooltip="Cancelar" 
+                            (click)="done()" *ngIf="bRecording">
+                        <mat-icon id="mobile-stop">clear</mat-icon>
+                    </button>
+                    <mat-icon *ngIf="bRecording">more_vert</mat-icon>
+                    <button mat-icon-button matTooltip="Registrar" 
+                            (click)="take()" *ngIf="bRecording">
+                        <mat-icon id="mobile-rec">stop</mat-icon>
+                    </button>
+
+                    <span fxFlex>
+                        <span *ngIf="bRecording" fxLayoutOffset="32px">Gravando...</span>
+                    </span>
+
+                    <button mat-icon-button matTooltip="Enviar Audio"
+                            [disabled]="bRecording"
+                            (click)="initCam(false)">
+                        <mat-icon>mic_none</mat-icon>
+                    </button>
+
+                    <mat-icon>more_vert</mat-icon>
+
+                    <button mat-icon-button matTooltip="Enviar Camera" 
+                            [disabled]="bRecording"
+                            (click)="initPic()">
+                        <mat-icon>photo_camera</mat-icon>
+                    </button>
+
+                    <mat-icon>more_vert</mat-icon>
+
+                    <button mat-icon-button matTooltip="Enviar Video" 
+                            [disabled]="bRecording"
+                            (click)="initCam(true)">
+                        <mat-icon>videocam</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

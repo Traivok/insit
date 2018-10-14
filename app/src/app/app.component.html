@@ -1,0 +1,126 @@
+
+<div fxLayout="column" class="page">
+    <mat-toolbar>
+        <button mat-icon-button (click)="sidenav.toggle()">     
+            <mat-icon>menu</mat-icon>
+        </button>
+        
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+            <span>Insit 
+                <span *ngIf="client"> - <span>{{client}}</span></span>
+            </span>
+            <div fxFlex fxLayoutAlign="center"><span>{{title}}</span></div>
+        </div>
+<!--
+        <ng-container  *ngIf="auth.isAuthenticated()">
+            <mat-menu #loginMenu="matMenu">
+                <button mat-menu-item [routerLink]="['/profile']">     
+                    <mat-icon>account_box</mat-icon>
+                    <span >Profile</span>
+                </button>
+                <button mat-menu-item>     
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span (click)="auth.logout('/')">Sair</span>
+                </button>
+                <button mat-menu-item [routerLink]="['/config']">     
+                    <mat-icon>settings</mat-icon>
+                    <span>Configurações</span>
+                </button>
+                <button mat-menu-item [routerLink]="['/about']">     
+                    <mat-icon>help</mat-icon>
+                    <span>Ajuda</span>
+                </button>
+            </mat-menu>
+
+            <span [matMenuTriggerFor]="loginMenu" class="login">{{ profile?.nickname }}</span>
+            <img [matMenuTriggerFor]="loginMenu" src="{{profile?.picture}}" class="avatar" alt="avatar">
+        </ng-container>
+
+        <ng-container *ngIf="!auth.isAuthenticated()">
+            <a (click)="auth.login()" class="login">Log In</a>
+            <mat-icon (click)="auth.login()">account_circle</mat-icon>
+        </ng-container>
+-->
+    </mat-toolbar>
+    
+    <mat-sidenav-container class="sidenav">
+        <mat-sidenav #sidenav mode="over" opened="false">
+<!--            <ng-container *nyxAuth="'admin:users'">-->
+<!--            <mat-nav-list *ngIf="auth.isAuthenticated()">-->
+            <mat-nav-list>
+                <h3 class="sections">Situação Organizacional</h3>
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/org']"
+                    routerLinkActive="active"><mat-icon>account_balance</mat-icon>Órgãos e Secretarias</a>
+                
+                <h3 class="sections">Situação Estrutural</h3>
+                <a *ngFor="let a of aspects" 
+                    mat-list-item fxFlexLayout="column" class="domain"
+                    [routerLink]="['/sit/'+a.aspect_id]"
+                    routerLinkActive="active"><mat-icon>{{a.icon}}</mat-icon>{{a.aspect_desc}}</a>                
+                
+                <h3 class="sections">Situação Geográfica</h3>
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/geo']"
+                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Regiões Administrativas</a>  
+                
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/event']"
+                    routerLinkActive="active"><mat-icon>event</mat-icon>Ocorrências</a>  
+                
+                <h3 class="sections">Mapas</h3>
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/map']"
+                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Mapas</a>  
+                
+<!--
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/mapyx']"
+                    routerLinkActive="active"><mat-icon>public</mat-icon>Mapyx</a>  
+-->
+                
+                <h3 class="sections">Mídia</h3>
+<!--
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   href="http://sentinela.insit.net.br/#/" target="_blank"
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Sentinela</a>  
+-->
+                
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   href="https://tweetdeck.twitter.com/#" target="_blank"
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Twitter</a>  
+                
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/media']"
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Insit Media</a>  
+                
+                <h3 class="sections">Sistema</h3>                
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/mobile']"
+                    routerLinkActive="active"><mat-icon>settings_cell</mat-icon>Mobile</a>
+                               
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/profile']"
+                    routerLinkActive="active"><mat-icon>person</mat-icon>Acesso</a>
+                
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/config']"
+                    routerLinkActive="active"><mat-icon>settings</mat-icon>Configuração</a>
+                
+<!--
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/about']"
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Sobre o Insit</a>
+-->
+
+                <a mat-list-item fxFlexLayout="column" class="domain"
+                   [routerLink]="['/insit']"
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Insit</a>
+            </mat-nav-list>
+<!--            </ng-container>-->
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

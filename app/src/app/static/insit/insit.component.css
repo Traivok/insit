@@ -1,0 +1,234 @@
+
+
+
+
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 20px 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+    }
+}
+
+/* Demo Sections - You can use these as guides or delete them - the scroller will work with any sort of height, fixed, undefined, or percentage based.
+The padding is very important to make sure the scrollspy picks up the right area when scrolled to. Adjust the margin and padding of sections and children 
+of those sections to manage the look and feel of the site. */
+
+.intro-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #fff;
+}
+
+.about-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #eee;
+}
+
+.services-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #fff;
+}
+
+.contact-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #eee;
+}
+
+
+* {
+	list-style:none;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+.icon-round {
+    border:1px solid #e6e6e6;
+    color: #999;
+    width: 33px;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    font-size: 15px;
+    text-align: center;
+    padding: 6px 0 7px;
+    cursor: pointer;
+    transition: background 0.2s,color 0.2s,border 0.2s;
+}
+
+.icon-round:hover {
+    background: #73c594;
+    border-color: #62b683;
+    color: #fff;
+}
+
+.banner {
+    display: block;
+    background: #0f587f;
+    padding: 40px 0;
+}
+
+.banner .banner-cont {
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;;
+}
+
+.banner .banner-cont .logo-argus {
+    float: left;
+    clear: left;
+    width: 220px;
+    padding: 15px 10px 15px 0;
+    text-align: right;
+    border-right: 1px solid #fff;
+}
+
+.banner .banner-cont .slogan-argus {
+    float: left;
+    clear: right;
+}
+
+.banner .banner-cont .slogan-argus p {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 20px;
+    padding: 25px 0 0 20px;
+}
+
+/*-- CONT --*/
+
+.cont {
+    background-color: white;
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+strong {
+}
+
+/*-- MENU SHAPE --*/
+
+.menu-shape {
+    width: 230px;
+    padding: 15px 0;
+    float: left;
+    clear: left;
+    text-align: right;
+    margin: 15px 0;
+}
+
+.menu-shape ul li a, .menu-shape ul li .menu-default {
+    color: #aeaeae;
+    border-right: 1px solid #eaeaea;
+    padding: 10px 10px 10px 0;
+    display: block;
+}
+
+.menu-shape ul li a:hover, .menu-shape ul li .menu-active {
+    border-right:4px solid #27c3ec;
+    padding-right: 7px;
+    color: #818181;
+}
+
+.menu-shape ul li ul li a, .menu-shape ul li ul li .submenu-default {
+    font-size: 15px;
+    font-family: robotolight;
+    padding:5px 10px 5px 0;
+    color: #aeaeae;
+    border-right: 1px solid #eaeaea;
+}
+
+.menu-shape ul li ul li a:hover, .menu-shape ul li ul li .submenu-active {
+    border-right:2px solid #27c3ec;
+    padding-right: 9px;
+    color: #818181;
+}
+
+/*-- VIEW --*/
+
+.view-cont {
+    width: 750px;
+    float: left;
+    clear: right;
+    margin: 35px 0;
+    padding: 0 0 0 20px;
+}
+
+.view-cont a {
+    color: #27c3ec;
+}
+
+.view-cont a:hover {
+    text-decoration: underline;
+}
+
+.view-cont h1 {
+    margin: 0 0 20px;
+    color: #0f587f;
+    font-size:35px;
+    font-family: robotobold;
+}
+
+.view-cont h2 {
+    margin: 0 0 15px;
+    color: #27c3ec;
+    font-size:25px;
+}
+
+.view-cont h3 {
+    margin: 0 0 10px;
+    color: #333;
+    font-size:20px;
+}
+
+.view-cont ul {
+    margin: 0 0 15px 30px;
+    font-family: robotolight;
+}
+
+.view-cont ul li {
+    color: #818181;
+    margin: 0 0 10px;
+}
+
+.view-cont ul li:before {
+    content: "•";
+    color: black;
+    margin: 0 10px 0 0;
+}
+
+.view-cont p {
+    margin: 0 0 15px;
+    color: #818181;
+    font-family: robotolight;
+}
+
+.view-cont img {
+    width: 100%;
+}
+
+.view-cont .img-legend {
+    text-align: center;
+    display: block;
+    font-size: 11px;
+}
+
+.view-cont .copyright {
+    font-size: 10px;
+}

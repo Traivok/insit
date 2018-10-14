@@ -1,0 +1,46 @@
+<mat-card fxLayout="column" fxLayoutAlign="space-between">
+    <mat-card-title fxLayout="row" class="detail-status-title">
+        <span><a class="h3" [routerLink]="['..']"><mat-icon>arrow_back</mat-icon></a></span>
+        <span fxFlex>{{geo?.geo_name}}</span>
+    </mat-card-title>
+    
+    <mat-card-subtitle fxLayout="row" class="detail-status-subtitle">
+        <span fxFlex>
+            <strong>Subprefeitura:</strong>&nbsp;&nbsp;<span>{{geo?.subprefeitura}}</span>
+        </span>
+        <span fxFlex="15%" *ngIf="geo?.population">
+            <strong>População:</strong>&nbsp;&nbsp;{{geo?.population}}
+        </span>
+        <span fxFlex="15%" *ngIf="geo?.area">
+            <strong>Área:</strong>&nbsp;&nbsp;{{geo?.area | number:'1.2-2'}}&nbsp;km²
+        </span>
+    </mat-card-subtitle>
+
+    <mat-accordion [multi]="true">
+        <mat-expansion-panel *ngFor="let b of geo?.bairros"> 
+            <mat-expansion-panel-header>
+                <mat-icon>tune</mat-icon>&nbsp;&nbsp;
+                    <span fxFlex>{{b.geo_name}}</span>
+                    <span fxFlex="15%" *ngIf="b.population">População: &nbsp;&nbsp; {{b.population || 'N/A'}}</span>
+                    <span fxFlex="15%" *ngIf="b.area">Área: &nbsp;&nbsp; {{b.area | number:'1.2-2'}}&nbsp;km²</span>
+            </mat-expansion-panel-header>
+
+            <mat-list fxFlex="80" fxFlexOffset="10%">
+                <mat-list-item *ngFor="let a of b.counts" 
+                               class="detail-status-eval">
+                    <button fxFlex="3em" matIconButton (click)="post(a)" [disabled]="!a.enabled"><mat-icon >add_circle</mat-icon></button>
+                    <mat-checkbox fxFlex="3em"  [(ngModel)]="a.enabled" (change)="toggle(a)"></mat-checkbox>
+                    <span fxFlex>
+                        <mat-icon>{{a.icon}}</mat-icon>
+                        <span class="detail-status-aspect">{{a.eventtype_desc}}</span>
+                    </span>
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>    
+    </mat-accordion>
+    
+    <div class="detail-status-bar">
+        <insit-counts fxFlex="80%" fxFlexOffset="10%" [counts]="geo?.counts"></insit-counts>
+    </div>    
+</mat-card>
+

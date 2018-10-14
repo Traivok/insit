@@ -1,0 +1,64 @@
+mat-list-item {
+    border-bottom: 1px solid lightgray;
+}
+
+
+#mobile-map > div > div.ol-overlaycontainer-stopevent {
+    display: none   !important;
+}
+
+#mobile { 
+    padding: 16px;
+    margin: 1em auto;
+
+    width: 600px;    
+    background-color: white;
+}
+
+#mobile-header {
+    margin-bottom: 1em;
+}
+
+#mobile-title {
+    margin: auto;    
+}
+
+.mobile-body {
+    margin: 2em auto;
+    height: 540px;
+    width: 568px;
+}
+
+#mobile-map {
+    margin-top: 1em !important;
+}
+
+#mobile-rec {
+    color: rgba(173,0,0,1);
+	animation-name: pulse;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+
+#mobile-sent {
+    color: green;
+}
+
+@keyframes pulse{
+	0%{
+		box-shadow: inset 0px 0px 0px 0px rgba(173,0,0,.3);
+	}
+	65%{
+		box-shadow: inset 0px 0px 10px 13px rgba(173,0,0,.3);
+	}
+	90%{
+		box-shadow: inset 0px 0px 10px 13px rgba(173,0,0,0);
+	}
+}
+
+
+#mobile-select-geo {
+    margin-top: 16px;
+}

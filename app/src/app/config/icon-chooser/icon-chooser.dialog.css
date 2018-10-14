@@ -1,0 +1,6 @@
+.selected {
+    border: 1px solid black;
+/*    background-color: gray;*/
+    background-color: black;
+    color: white;
+}

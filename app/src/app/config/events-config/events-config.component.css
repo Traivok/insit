@@ -1,0 +1,13 @@
+#eventtypes-config {
+    margin-top: 2em;
+}
+
+.grade {
+    padding: 5px;
+    border: solid 2px;
+    border-radius: 5px;
+}
+
+mat-card {
+    margin-bottom: 16px;
+}

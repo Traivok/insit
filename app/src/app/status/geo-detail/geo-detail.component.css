@@ -1,0 +1,39 @@
+button {
+    border: none;
+    background-color: transparent;
+}
+
+mat-expansion-panel,
+mat-card {
+    margin: 16px;
+}
+
+mat-checkbox {
+    top: 50%;
+    transform: translate(0, 15%)
+}
+
+.detail-status-slider {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.detail-status-eval {
+    border-bottom: 1px solid lightgray;
+}
+
+.detail-status-aspect {
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+    padding-left: 10px;
+}
+
+.detail-status-bar {
+    margin-top: 40px;
+}
+
+.detail-status-title mat-icon {
+    margin-left: 10px;
+    margin-right: 10px;
+}

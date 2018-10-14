@@ -1,0 +1,23 @@
+<div id="media-config" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-around start">
+    <mat-card fxFlex fxFlexFill>
+        <mat-card-header>
+            <h1>Twitter Sources</h1>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        
+        <mat-list>
+            <mat-list-item *ngFor="let a of sources; let i=index;">
+                <div fxFlex fxLayout="row" fxLayoutGap="2em" fxLayoutAlign="space-between center">
+                    <mat-form-field floatPlaceholder='always' fxFlex>
+                        <input matInput type="text" [placeholder]="'Perfil '+i"
+                               [(ngModel)]="a.screenName">
+                    </mat-form-field>
+
+                    <button mat-icon-button (click)="save(a)">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
+        </mat-list>    
+    </mat-card>
+</div>    
