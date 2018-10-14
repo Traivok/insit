@@ -1,41 +1,22 @@
 'use strict'
 
 const getopt = require('node-getopt-long');
-//const url    = require('url');
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 const defaults = {
-    serverPort  : 3001,
-    serverName  : 'inkas - NYX Knowledge Application Server', 	    
-    appName     : 'insit',
-    copyright   : 'Copyright 2015 (c) Antonio A. Russo',
-    logFormat   : 'combined',
-    cors        : false,
-    http2       : false,
-    printAPI    : false,
-    verbose     : false,
-    cacheAge    : 86400000,
-    certRoot    : process.env.SSL_DIR,
-    certFile    : { ca:     'chain.pem',
-                    key:    'privkey.pem',
-                    cert:   'fullchain.pem' }
+    appPort  : process.env.APP_PORT || 3000,
+    appName  : process.env.APP_NAME || 'no app name', 	    
+    copyright : 'Copyright 2015 (c) Antonio A. Russo',
+    cacheAge  : 86400000,
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-const options =  getopt.configure([
-	['printAPI|a!',         { description: 'Print out ALL exposed API mountpaths' }],
-	['http2!',              { description: 'Enable HTTP/2 (default)' }],
-	['cors!',               { description: 'Enable CORS' }],
-	['verbose|v',           { description: 'Be verbose' }],
-	['dbConn=s',            { description: 'Database connection URL' }],
-	['serverPort|port|p=i', { description: 'TCP Port',          on:     parseInt }],
-	['cacheAge|t=i',        { description: 'HTTP Cache maxAge', on:     parseInt }],
-	['logFormat|F=s',       { description: 'LogFormat',         test:   ['dev', 'combined', 'common', 'short', 'tiny'] }] ],
+const options =  getopt.configure([],
 	{ name        : 'inkas',
 	commandVersion: 3.1,
-	helpPrefix    : defaults.serverName,
+	helpPrefix    : defaults.appName,
 	helpPostfix   : defaults.copyright,	
 	defaults      : defaults }).process();
 
@@ -49,5 +30,4 @@ options.pgConn = {
 };
 
 options.knex = require('knex')({client: 'pg', connection: options.pgConn, debug: false });
-
 module.exports = options;

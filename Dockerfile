@@ -2,6 +2,8 @@ FROM node:8
 
 EXPOSE 4040
 
+ENV APP_PORT='4040'
+ENV APP_NAME='INSIT => inkas:docker'
 ENV PG_DB='inkas'
 ENV PG_USER='inkas'
 ENV PG_HOST='insit-db'
@@ -21,4 +23,5 @@ RUN npm install
 
 WORKDIR /usr/inkas/insit
 
-CMD ["npm", "start"]
+#CMD ["node", "start"]
+ENTRYPOINT ['node', '.']

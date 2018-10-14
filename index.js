@@ -1,83 +1,44 @@
 'use strict'
 
-const _			  = require('lodash');
 const fs		  = require('fs');
 const pg          = require('pg').native;
 const path        = require('path');
-const spdy        = require('spdy');
 const chalk       = require('chalk');
-const compression = require('compression');
-const listRoutes  = require('express-list-routes');
-const session     = require('express-session');
-const pgSession   = require('connect-pg-simple')(session);
-const history     = require('connect-history-api-fallback');
-
 const express	  = require('express');
 const morgan      = require('morgan');
+const xmlParser   = require('express-xml-bodyparser');
 const bodyParser  = require('body-parser');
-const xmlParser = require('express-xml-bodyparser');
+const compression = require('compression');
+const history     = require('connect-history-api-fallback');
 
-const options = require('./config.js');
+const options     = require('./config.js');
 
 // Configure Logging
-const log = morgan(options.logFormat, { stream: options.logStream });
-
-// Fix morgan HTTP/2 fail
-morgan.token('http-version', function getHttpVersionToken(req){
-    return req.isSpdy ? '2' : req.httpVersionMajor + '.' + req.httpVersionMinor
-});
+const log = morgan('combined');
 
 // Start express.js
 const srv = express();
 srv.use(compression());
-
 srv.use(history({rewrites: [{ from: /^\/api.*$/,
                                 to: c => c.parsedUrl.pathname }] } ));
-
-// Set render engine to AUTH
+// Logging
 srv.use(log);
-console.log( chalk.bold.yellow('Starting %s'), chalk.bold.yellow(options.serverName) );
+console.log( chalk.bold.yellow('Starting %s'), chalk.bold.yellow(options.appName) );
 
+// BODY Parsers
 srv.use(bodyParser.json());
 srv.use(bodyParser.urlencoded({extended: true}));
 srv.use(xmlParser());
 
-srv.use(session({saveUninitialized: false, 
-                 secret: options.serverName, 
-                 resave: false, 
-                 store : new pgSession({ pg: pg, 
-                                  tableName: 'sessions', 
-                                 schemaName: 'auth', 
-                                  conObject: options.pgConn
-                                       })
-}));
-
-// CORS
-if ( options.cors ) {
-    console.log( chalk.bold.yellow('CORS Enabled') );
-
-    srv.use(function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Methods", "GET, DELETE, OPTIONS, POST, PUT, HEAD");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-      next();
-    });
+// Serve Angular 5+ dist dir
+const appDist = './app/dist';
+if ( fs.existsSync(appDist) ) {
+    srv.use('/', express.static(appDist, {maxAge: options.cacheAge} ));
 }
 
-    
-if ( !fs.statSync('./web').isDirectory() )
-    return;
-
-process.stdout.write ('Application '+chalk.bold.white(options.appName)+chalk.bold.white('\t=> ')+chalk.cyan('API '));
-
-// Serve Angular 5+ dist dir
-srv.use('/', express.static( './web/dist', {maxAge: options.cacheAge} ));
-
 // Serve API
-const appAPI   = './web/api';
-if ( !fs.existsSync(appAPI) ) {
-    process.stdout.write(chalk.gray('none\n'));
-} else {
+const appAPI = './app/api';
+if ( fs.existsSync(appAPI) ) {
     fs.readdirSync(appAPI)
         .filter ( (f) => fs.statSync(path.join(appAPI,f)).isDirectory() )
         .forEach(function(vers, i, allAPI){
@@ -90,37 +51,19 @@ if ( !fs.existsSync(appAPI) ) {
                 if ( r == scrpt )
                     return;
 
+                console.log('\t => ', path.join(appAPI,vers,r));    
                 const Router = require(path.join(__dirname,appAPI,vers,r)); 
-
-                if ( options.printAPI ) {
-                    listRoutes({ prefix: '=> '+route }, '\nAPI v'+vers+':\t'+scrpt, Router );
-                }
-
                 srv.use ( route, Router );
             })
         })
 }
 
-// printAPI
-if ( options.printAPI ) {
-    process.exit(0);
-}
-
-const appSrv = options.http2 ? spdy.createServer({
-        ca: fs.readFileSync(options.certRoot+'/'+options.certFile.ca),
-        key: fs.readFileSync(options.certRoot+'/'+options.certFile.key),
-        cert: fs.readFileSync(options.certRoot+'/'+options.certFile.cert),
-    }, srv) : srv;
-
-
 // Run server
-appSrv.listen(options.serverPort, function(err){
+srv.listen(options.appPort, (err) => {
     if (err) {
         console.error(chalk.red(error));
-        return process.exit(1);
+        process.exit(1);    
     } else {
-        console.log('Listening to %s at port TCP/%s', 
-                        options.http2 ? chalk.bold('HTTPS') : chalk.gray('HTTP'),
-                        options.serverPort);
+        console.log(`Listening to HTTP at port TCP/${options.appPort}`);    
     }
 });
