@@ -1,3 +1,4 @@
+
 -- ---------
 -- ---------
 -- ---------
@@ -53,14 +54,15 @@ WITH totals AS (
 	SELECT 	uf, 
 			sexo, 
 			raca, 
-			inscritos,
+			SUM(inscritos) AS inscritos,
 			SUM(total) AS total 
-	FROM insit.resumes
+	FROM insit.resumes NATURAL FULL JOIN insit.inscritos
 	GROUP BY uf, sexo, raca)
 
 SELECT *, 100*(inscritos / total) AS adesao 
 FROM insit.inscritos 
-NATURAL FULL JOIN totals;
+NATURAL FULL JOIN totals
+WHERE uf != '' AND sexo != '0';
 
 
 
@@ -80,7 +82,7 @@ totals AS
 		'TOTAL'::VARCHAR AS raca,
 		SUM(inscritos) AS inscritos, 
 		SUM(total) AS total, 
-		100*(SUM(inscritos) / SUM(total)) AS adesao
+		10000*(SUM(inscritos) / SUM(total)) AS adesao
 FROM insit.adesao
 GROUP BY uf, sexo),
 
