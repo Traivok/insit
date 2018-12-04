@@ -2,10 +2,11 @@
 <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-around" class="status-bar">
     <ng-container *ngFor="let a of counts">
         <div fxLayout="column" fxFlex="15%" fxLayoutAlign="center center"
-             matTooltip="{{a.eventtype_desc}}" 
+             matTooltip="{{a.geo_name}}" 
              class="status-aspect" 
              [ngStyle]="{ 'background-color': a.bgColor, 'color': a.fgColor }">
-            <mat-icon class="text-center">{{a.icon}}</mat-icon>
+<!--            <mat-icon class="text-center">{{a.icon}}</mat-icon>-->
+            <strong>{{a.sigla}}</strong>
             <span class="text-center">
                 <span *ngIf="a.event_count">{{a.event_count}}</span>
                 <span *ngIf="!a.event_count">--</span>

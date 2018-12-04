@@ -18,8 +18,9 @@ RUN git clone https://github.com/aarusso-nyx/insit.git
 WORKDIR /usr/inkas/insit
 RUN npm install 
 
-WORKDIR /usr/inkas/insit/web
-RUN npm install 
+WORKDIR /usr/inkas/insit/app
+RUN rm -Rf src
+RUN git clone https://github.com/aarusso-nyx/insit-web.git dist
 
 WORKDIR /usr/inkas/insit
 

@@ -16,7 +16,8 @@
                              (change)="change(et.value)" 
                              [value]="eventtype">
         <mat-button-toggle *ngFor="let a of eventtypes" [matTooltip]="a.eventtype_desc" [value]="a">
-            <mat-icon>{{a.icon}}</mat-icon>
+<!--            <mat-icon>{{a.icon}}</mat-icon>-->
+            {{a.route}}
         </mat-button-toggle>
     </mat-button-toggle-group>
 

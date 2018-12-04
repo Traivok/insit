@@ -180,11 +180,11 @@ export class MapsComponent implements OnInit {
         this.selectEvt = new OlSelect({ layers: [ this.EVT ]});
         
         this.center = new OlView({  projection: 'EPSG:3857',
-                                        extent: [-4875408, -2642046, -4797763, -2601332],
-                                        center: [-4835000, -2624000],
-                                          zoom: 10,
-                                       maxZoom: 18,
-                                       minZoom: 10 });
+//                                        extent: [-4875408, -2642046, -4797763, -2601332],
+                                        center: [-6835000, -1624000],
+                                          zoom: 5,
+                                       maxZoom: 10,
+                                       minZoom: 4 });
         
     }
     
@@ -213,7 +213,7 @@ export class MapsComponent implements OnInit {
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
     reset () : void {
-        this.center.fit([-4875408, -2642046, -4797763, -2601332], {duration: 1500});
+        this.center.fit([-4975408, -5542046, -6097763, 201332], {duration: 1500});
     }
     
     infoBox (evt) {

@@ -4,9 +4,10 @@
         <span fxFlex>{{geo?.geo_name}}</span>
     </mat-card-title>
     
+<!--
     <mat-card-subtitle fxLayout="row" class="detail-status-subtitle">
         <span fxFlex>
-            <strong>Subprefeitura:</strong>&nbsp;&nbsp;<span>{{geo?.subprefeitura}}</span>
+            <strong>Região:</strong>&nbsp;&nbsp;<span>{{geo?.subprefeitura}}</span>
         </span>
         <span fxFlex="15%" *ngIf="geo?.population">
             <strong>População:</strong>&nbsp;&nbsp;{{geo?.population}}
@@ -38,6 +39,7 @@
             </mat-list>
         </mat-expansion-panel>    
     </mat-accordion>
+-->
     
     <div class="detail-status-bar">
         <insit-counts fxFlex="80%" fxFlexOffset="10%" [counts]="geo?.counts"></insit-counts>

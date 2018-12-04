@@ -1,16 +1,13 @@
 <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-around">
     <mat-card fxFlex="31%" class="status-card"  *ngFor="let t of tiles">
         <mat-card-title>
-            <a [routerLink]="[t.org_id]">{{t.org_sigla}}</a>
+            <a [routerLink]="[t.org_id]">{{t.org_name}} - {{t.org_sigla}}</a>
         </mat-card-title>
 
         <mat-card-subtitle>
-            {{t.chief || 'Não Informado'}}
+            Resp.: {{t.chief || 'Não Informado'}}
         </mat-card-subtitle>
 
-        <mat-card-content fxLayout="column">
-            <strong>{{t.org_name}}</strong>
-            <insit-status [status]="t.status"></insit-status>
-        </mat-card-content>
+        <insit-status [status]="t.status"></insit-status>
     </mat-card>
 </div>

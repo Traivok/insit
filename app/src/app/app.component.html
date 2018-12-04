@@ -6,10 +6,11 @@
         </button>
         
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
-            <span>Insit 
-                <span *ngIf="client"> - <span>{{client}}</span></span>
-            </span>
+            <small fxFlex="10%">ID Jovem 2.0 
+<!--                <span *ngIf="client"> - <span>Painel Situacional</span></span>-->
+            </small>
             <div fxFlex fxLayoutAlign="center"><span>{{title}}</span></div>
+            <span fxFlex="10%"></span>
         </div>
 <!--
         <ng-container  *ngIf="auth.isAuthenticated()">
@@ -48,21 +49,21 @@
 <!--            <ng-container *nyxAuth="'admin:users'">-->
 <!--            <mat-nav-list *ngIf="auth.isAuthenticated()">-->
             <mat-nav-list>
-                <h3 class="sections">Situação Organizacional</h3>
+                <h3 class="sections">Situação</h3>
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/org']"
                     routerLinkActive="active"><mat-icon>account_balance</mat-icon>Órgãos e Secretarias</a>
                 
-                <h3 class="sections">Situação Estrutural</h3>
+<!--                <h3 class="sections">Situação Estrutural</h3>-->
                 <a *ngFor="let a of aspects" 
                     mat-list-item fxFlexLayout="column" class="domain"
                     [routerLink]="['/sit/'+a.aspect_id]"
                     routerLinkActive="active"><mat-icon>{{a.icon}}</mat-icon>{{a.aspect_desc}}</a>                
                 
-                <h3 class="sections">Situação Geográfica</h3>
+<!--                <h3 class="sections">Adesão</h3>-->
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/geo']"
-                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Regiões Administrativas</a>  
+                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Regiões</a>  
                 
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/event']"
@@ -92,15 +93,20 @@
                 
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/media']"
-                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Insit Media</a>  
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Repercussão</a>  
+
+                <a mat-list-item fxFlexLayout="column" class="domain"  target="_blank"
+                   href="https://idjovem.juventude.gov.br"
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>ID Jovem</a>
                 
-                <h3 class="sections">Sistema</h3>                
+                <h3 class="sections">Mobile</h3>                
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/mobile']"
                     routerLinkActive="active"><mat-icon>settings_cell</mat-icon>Mobile</a>
                                
+                <h3 class="sections">Ajustes</h3>
                 <a mat-list-item fxFlexLayout="column" class="domain"
-                   [routerLink]="['/profile']"
+                   [routerLink]="['/profile']" disabled
                     routerLinkActive="active"><mat-icon>person</mat-icon>Acesso</a>
                 
                 <a mat-list-item fxFlexLayout="column" class="domain"
@@ -112,10 +118,6 @@
                    [routerLink]="['/about']"
                     routerLinkActive="active"><mat-icon>whatshot</mat-icon>Sobre o Insit</a>
 -->
-
-                <a mat-list-item fxFlexLayout="column" class="domain"
-                   [routerLink]="['/insit']"
-                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Insit</a>
             </mat-nav-list>
 <!--            </ng-container>-->
         </mat-sidenav>

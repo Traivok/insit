@@ -4,5 +4,5 @@ export const environment = {
     baseURL: '/api/1.0',
     redirectURL: 'https://localhost:3000/#/callback',
     
-    client_name: 'Prefeitura do Rio de Janeiro'
+    client_name: 'ID Jovem'
 };

@@ -1,11 +1,8 @@
 <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-around">
     <mat-card  fxFlex="30%" class="status-card"  *ngFor="let t of tiles">
         <mat-card-title>
-            <a [routerLink]="[t.geo_id]">{{t.geo_order}}<span>.&nbsp;</span> {{t.geo_name}}</a>
+            <a [routerLink]="[t.geo_id]">{{t.geo_name}}</a>
         </mat-card-title>
-
-        <mat-card-subtitle>{{t.subprefeitura}}</mat-card-subtitle>
-
         <mat-card-content fxLayout="column">
             <insit-counts [counts]="t.counts"></insit-counts>
         </mat-card-content>

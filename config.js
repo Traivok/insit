@@ -6,7 +6,7 @@ const getopt = require('node-getopt-long');
 ///////////////////////////////////////////////////////////////////////////////
 const defaults = {
     appPort  : process.env.APP_PORT || 3000,
-    appName  : process.env.APP_NAME || 'no app name', 	    
+    appName  : process.env.APP_NAME || 'ID Jovem Situação - API', 	    
     copyright : 'Copyright 2015 (c) Antonio A. Russo',
     cacheAge  : 86400000,
 };

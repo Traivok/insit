@@ -7,7 +7,7 @@ export const environment = {
     production: false,
     
 //    baseURL: '/api/1.0',
-    baseURL: 'https://localhost:3000/api/1.0',
+    baseURL: 'http://localhost:3000/api/1.0',
     redirectURL: 'https://localhost:4200/callback',
     
     client_name: ''

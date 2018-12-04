@@ -30,6 +30,13 @@ srv.use(bodyParser.json());
 srv.use(bodyParser.urlencoded({extended: true}));
 srv.use(xmlParser());
 
+srv.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, DELETE, OPTIONS, POST, PUT, HEAD");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+});
+
 // Serve Angular 5+ dist dir
 const appDist = './app/dist';
 if ( fs.existsSync(appDist) ) {

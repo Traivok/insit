@@ -35,13 +35,13 @@ q.DTB_sub = db.Model.extend({ tableName: sn+'dtb_dis' });
 
 q.Geo = db.Model.extend({ tableName: sn+'geo_data', idAttribute: 'geo_id', 
     events: function() { return this.hasMany (q.Events,     'geo_id') },
-    counts: function() { return this.hasMany (q.EventCount, 'geo_id') },
+    counts: function() { return this.hasMany (q.EventCount, 'parent_id') },
    bairros: function() { return this.hasMany (q.Bairros, 'parent_id') },
 });
 
 q.Bairros = db.Model.extend({ tableName: sn+'geo_bairros', idAttribute: 'geo_id', 
     events: function() { return this.hasMany (q.Events,     'geo_id') },
-    counts: function() { return this.hasMany (q.EventCount, 'geo_id') },
+    counts: function() { return this.hasMany (q.EventCount, 'parent_id') },
     regadm: function() { return this.belongsTo (q.Geo, 'parent_id') },
 });
 
