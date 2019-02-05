@@ -1,0 +1,15 @@
+.status-aspect {
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    max-width: 5em !important;
+
+}
+
+.status-bar {
+    background-color: aliceblue;
+    border: 3px solid lightgray;
+    border-radius: 10px;
+
+}

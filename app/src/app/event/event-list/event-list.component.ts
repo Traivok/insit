@@ -20,7 +20,7 @@ export class EventListComponent implements OnInit {
 
     events: MatTableDataSource<Event>;
     cols: string[] = [ 'event_id', 'eventtype', 'bairro', 'regadm', 'eventstatus', 'severity'];
-    mobile_cols: string[] = [ 'event_id', 'eventtype', 'eventstatus', 'severity'];
+    mobile_cols: string[] = [ 'event_id', 'eventtype', 'severity'];
     
     constructor( private status: StatusService,
                  private app:    AppService) { 

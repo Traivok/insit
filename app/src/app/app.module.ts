@@ -94,6 +94,8 @@ import { StatusComponent }  from './status/status/status.component';
 import { CountsComponent }  from './status/counts/counts.component';
 import { IconChooserDlg  }  from './config/icon-chooser/icon-chooser.dialog';
 
+import { MobileStatusComponent } from "./status/mobile-status/mobile-status.component";
+
 import { MobileComponent,
          ShowMediaDlg }     from './mobile/mobile/mobile.component';
 import { MobileService }    from './mobile/mobile.service';
@@ -108,7 +110,7 @@ import { TimeLineComponent,
 import { MediaConfigComponent } from './config/media-config/media-config.component';
 import { InsitComponent } from './static/insit/insit.component';
 import { LatLonPipe } from './pipes/lat-lon.pipe';
-
+import { AbrevPipe } from './pipes/abrev.pipe';
 
 export function tokenGetter() { 
     return localStorage.getItem('access_token');
@@ -153,6 +155,8 @@ export function tokenGetter() {
     ShowMediaEventDlg,
     MediaConfigComponent, 
     EventDetailComponent, EventListComponent, InsitComponent, LatLonPipe,
+    MobileStatusComponent,
+    AbrevPipe,
  ],
   imports: [ 
     BrowserModule,

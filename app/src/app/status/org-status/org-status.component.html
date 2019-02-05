@@ -1,4 +1,4 @@
-<div fxFlex fxLayout="row wrap" fxLayoutAlign="space-around">
+<div *ngIf="!mobile" fxFlex fxLayout="row wrap" fxLayoutAlign="space-around">
     <mat-card fxFlex="31%" class="status-card"  *ngFor="let t of tiles">
         <mat-card-title>
             <a [routerLink]="[t.org_id]">{{t.org_name}} - {{t.org_sigla}}</a>
@@ -9,5 +9,19 @@
         </mat-card-subtitle>
 
         <insit-status [status]="t.status"></insit-status>
+    </mat-card>
+</div>
+
+<div *ngIf="mobile" fxFlex fxLayout="column wrap">
+
+    <mat-card fxFlex class="mobile-status-card" *ngFor="let t of tiles">
+        <mat-card-title>
+            <a [routerLink]="[t.org_id]">{{t.org_name}} - {{t.org_sigla}}</a>
+        </mat-card-title>
+
+        <mat-card-subtitle>
+            Resp.: {{t.chief || 'Não Informado'}}
+        </mat-card-subtitle>
+
     </mat-card>
 </div>

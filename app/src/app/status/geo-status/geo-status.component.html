@@ -1,4 +1,4 @@
-<div fxFlex fxLayout="row wrap" fxLayoutAlign="space-around">
+<div fxFlex fxLayout.xs="column" fxLayout="row wrap" fxLayoutAlign="space-around">
     <mat-card  fxFlex="30%" class="status-card"  *ngFor="let t of tiles">
         <mat-card-title>
             <a [routerLink]="[t.geo_id]">{{t.geo_name}}</a>

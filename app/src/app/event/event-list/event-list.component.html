@@ -74,7 +74,7 @@
      </mat-form-field>
     </form>
 
-    <mat-table fxLayout="row" matSort #table [dataSource]="events">
+    <mat-table fxLayout="column" matSort #table [dataSource]="events">
 
         <!-- Position Column -->
         <ng-container matColumnDef="event_id">
@@ -93,18 +93,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Natureza </mat-header-cell>
             <mat-cell *matCellDef="let element" fxLayoutAlign="start center">
                 <mat-icon>{{element.eventtype.icon}}</mat-icon>
-                <span fxFlexOffset="1em">  {{element.eventtype.eventtype_desc}}</span>
-            </mat-cell>
-            </div>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="eventstatus">
-            <div fxFlex="auto">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Situação </mat-header-cell>
-            <mat-cell *matCellDef="let element" fxLayoutAlign="start center">
-                <mat-icon>{{element.status.icon}}</mat-icon>
-                <span fxFlexOffset="1em">  {{element.status.eventstatus_desc}}</span>
+                <span fxFlexOffset="1em">{{element.eventtype.eventtype_desc | abrev:4}}</span>
             </mat-cell>
             </div>
         </ng-container>

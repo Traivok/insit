@@ -6,6 +6,7 @@ import { StatusService }    from '../status.service';
 import { Org, Status }      from '../status.interfaces';
 
 import _extend from "lodash-es/extend";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 @Component({
     templateUrl: './org-detail.component.html',
@@ -13,10 +14,21 @@ import _extend from "lodash-es/extend";
 })
 export class OrgDetailComponent implements OnInit {
     org: Org;
+    mobile: boolean;
     
     constructor( private route:  ActivatedRoute,
                  private status: StatusService,
-                 private app:    AppService ) { }
+                 private app:    AppService,
+                 private breakpointObserver: BreakpointObserver ) {
+        breakpointObserver.observe([
+            Breakpoints.HandsetLandscape,
+            Breakpoints.HandsetPortrait
+        ]).subscribe(result => {
+            if (result.matches) {
+                this.onChangeLayout();
+            }
+        });
+    }
 
     ngOnInit() {
         this.route.params.subscribe( addr => {
@@ -25,6 +37,10 @@ export class OrgDetailComponent implements OnInit {
                 this.app.setTitle(this.org.org_name);
             })
         });
+    }
+
+    onChangeLayout() {
+        this.mobile = this.breakpointObserver.isMatched('(max-width: 599px)');
     }
 
     change ( e: Status ) : void { 
