@@ -1,4 +1,4 @@
-<mat-toolbar  fxLayoutGap="2em" fxLayoutGap.xs="1px">
+<mat-toolbar *ngIf="!mobile" fxLayoutGap="2em" fxLayoutGap.xs="1px">
 
     <button mat-icon-button matTooltip="Visão Inicial" 
             (click)="reset()">
@@ -48,9 +48,84 @@
             {{ e.eventstatus_desc }}
             </mat-option>
         </mat-select>
-    </mat-form-field>    
-
+    </mat-form-field>
 </mat-toolbar>
+
+<mat-tab-group *ngIf="mobile" fxLayoutGap="2em" fxLayoutGap.xs="1px" style="background-color: #fafafa">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <button mat-icon-button matTooltip="Visão Inicial"
+                    (click)="reset()">
+                <mat-icon>my_location</mat-icon>
+            </button>
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <span fxFlex class="text-center">{{eventtype?.eventtype_desc}}</span>
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-button-toggle-group multiple>
+                <mat-button-toggle matTooltip="Info"
+                                   (change)="info($event.source.checked)">
+                    <mat-icon>place</mat-icon>
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-button-toggle-group #et="matButtonToggleGroup"
+                                     (change)="change(et.value)"
+                                     [value]="eventtype">
+                <mat-button-toggle *ngFor="let a of eventtypes" [matTooltip]="a.eventtype_desc" [value]="a">
+                    <!--            <mat-icon>{{a.icon}}</mat-icon>-->
+                    {{a.route}}
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-form-field floatPlaceholder='never'>
+                <mat-select placeholder="Região"
+                            (change)="filtersChange()"
+                            [(ngModel)]="filter.fGeo">
+                    <mat-option [value]="null">--</mat-option>
+
+                    <mat-optgroup *ngFor="let dtb of filter.vGeo"
+                                  [label]="dtb.geo_name">
+                        <mat-option *ngFor="let g of dtb.bairros" [value]="g">
+                            {{ g.geo_name }}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-form-field floatPlaceholder='never'>
+                <mat-select placeholder="Situação"
+                            (change)="filtersChange()"
+                            [(ngModel)]="filter.fSts">
+                    <mat-option [value]="null">--</mat-option>
+                    <mat-option *ngFor="let e of filter.vSts" [value]="e">
+                        {{ e.eventstatus_desc }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
+
 <div id="map-map">
     <div id="feat-name"></div>
 </div>    

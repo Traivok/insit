@@ -57,6 +57,7 @@ import OlControl from 'ol/control';
 import OlControlScaleLine  from 'ol/control/scaleline';
 import OlControlZoomSlider from 'ol/control/zoomslider';
 import OlMousePosition from 'ol/control/mouseposition';
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +67,8 @@ import OlMousePosition from 'ol/control/mouseposition';
 })
 export class MapDialog {
     events: Event[];
-    
+
+
     constructor ( public dialogRef: MatDialogRef<MapDialog>,
                   private status: StatusService,    
                   @Inject(MAT_DIALOG_DATA) public data: any) { 
@@ -113,12 +115,15 @@ export class MapsComponent implements OnInit {
     eventtype:   EventType;
     eventtypes:  EventType[];
 
+    mobile: boolean;
+
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
     constructor( public dialog: MatDialog,
                  private route: ActivatedRoute,
                  private status: StatusService,
-                 private app:   AppService ) { 
+                 private app:   AppService,
+                 private breakpointObserver: BreakpointObserver ) {
         
         this.filter = {};
         
@@ -185,7 +190,15 @@ export class MapsComponent implements OnInit {
                                           zoom: 5,
                                        maxZoom: 10,
                                        minZoom: 4 });
-        
+
+        breakpointObserver.observe([
+            Breakpoints.HandsetLandscape,
+            Breakpoints.HandsetPortrait
+        ]).subscribe(result => {
+            if (result.matches) {
+                this.onChangeLayout();
+            }
+        });
     }
     
     
@@ -343,5 +356,9 @@ export class MapsComponent implements OnInit {
         };
                 
         this.selectGeo.on('select', EventDialog.bind(this) ); 
+    }
+
+    onChangeLayout() {
+        this.mobile = this.breakpointObserver.isMatched('(max-width: 599px)');
     }
 }
