@@ -6,10 +6,10 @@
         </button>
         
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
-            <small fxFlex="10%">ID Jovem 2.0 
+            <small fxFlex="10%">ID Jovem 2.0
 <!--                <span *ngIf="client"> - <span>Painel Situacional</span></span>-->
             </small>
-            <div fxFlex fxLayoutAlign="center"><span>{{title}}</span></div>
+            <div fxFlex fxLayoutAlign="center" fxHide.xs="true"><span>{{title}}</span></div>
             <span fxFlex="10%"></span>
         </div>
 <!--
@@ -53,66 +53,66 @@
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/org']"
                     routerLinkActive="active"><mat-icon>account_balance</mat-icon>Órgãos e Secretarias</a>
-                
+
 <!--                <h3 class="sections">Situação Estrutural</h3>-->
-                <a *ngFor="let a of aspects" 
+                <a *ngFor="let a of aspects"
                     mat-list-item fxFlexLayout="column" class="domain"
                     [routerLink]="['/sit/'+a.aspect_id]"
-                    routerLinkActive="active"><mat-icon>{{a.icon}}</mat-icon>{{a.aspect_desc}}</a>                
-                
+                    routerLinkActive="active"><mat-icon>{{a.icon}}</mat-icon>{{a.aspect_desc}}</a>
+
 <!--                <h3 class="sections">Adesão</h3>-->
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/geo']"
-                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Regiões</a>  
-                
+                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Regiões</a>
+
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/event']"
-                    routerLinkActive="active"><mat-icon>event</mat-icon>Ocorrências</a>  
-                
+                    routerLinkActive="active"><mat-icon>event</mat-icon>Ocorrências</a>
+
                 <h3 class="sections">Mapas</h3>
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/map']"
-                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Mapas</a>  
-                
+                    routerLinkActive="active"><mat-icon>terrain</mat-icon>Mapas</a>
+
 <!--
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/mapyx']"
-                    routerLinkActive="active"><mat-icon>public</mat-icon>Mapyx</a>  
+                    routerLinkActive="active"><mat-icon>public</mat-icon>Mapyx</a>
 -->
-                
+
                 <h3 class="sections">Mídia</h3>
 <!--
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    href="http://sentinela.insit.net.br/#/" target="_blank"
-                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Sentinela</a>  
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Sentinela</a>
 -->
-                
+
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    href="https://tweetdeck.twitter.com/#" target="_blank"
-                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Twitter</a>  
-                
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Twitter</a>
+
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/media']"
-                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Repercussão</a>  
+                    routerLinkActive="active"><mat-icon>whatshot</mat-icon>Repercussão</a>
 
                 <a mat-list-item fxFlexLayout="column" class="domain"  target="_blank"
                    href="https://idjovem.juventude.gov.br"
                     routerLinkActive="active"><mat-icon>whatshot</mat-icon>ID Jovem</a>
-                
-                <h3 class="sections">Mobile</h3>                
+
+                <h3 class="sections">Mobile</h3>
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/mobile']"
                     routerLinkActive="active"><mat-icon>settings_cell</mat-icon>Mobile</a>
-                               
+
                 <h3 class="sections">Ajustes</h3>
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/profile']" disabled
                     routerLinkActive="active"><mat-icon>person</mat-icon>Acesso</a>
-                
+
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/config']"
                     routerLinkActive="active"><mat-icon>settings</mat-icon>Configuração</a>
-                
+
 <!--
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    [routerLink]="['/about']"

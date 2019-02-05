@@ -1,4 +1,4 @@
-<mat-toolbar fxLayoutGap="2em">
+<mat-toolbar  fxLayoutGap="2em" fxLayoutGap.xs="1px">
 
     <button mat-icon-button matTooltip="Visão Inicial" 
             (click)="reset()">
@@ -12,8 +12,8 @@
         </mat-button-toggle>
     </mat-button-toggle-group>
 
-    <mat-button-toggle-group #et="matButtonToggleGroup" 
-                             (change)="change(et.value)" 
+    <mat-button-toggle-group #et="matButtonToggleGroup"
+                             (change)="change(et.value)"
                              [value]="eventtype">
         <mat-button-toggle *ngFor="let a of eventtypes" [matTooltip]="a.eventtype_desc" [value]="a">
 <!--            <mat-icon>{{a.icon}}</mat-icon>-->
@@ -23,13 +23,13 @@
 
     <span fxFlex class="text-center">{{eventtype?.eventtype_desc}}</span>
                   
-    
+
     <mat-form-field floatPlaceholder='never'>
         <mat-select placeholder="Região"
                     (change)="filtersChange()"
                     [(ngModel)]="filter.fGeo">
             <mat-option [value]="null">--</mat-option>
-            
+
             <mat-optgroup *ngFor="let dtb of filter.vGeo"
                           [label]="dtb.geo_name">
                 <mat-option *ngFor="let g of dtb.bairros" [value]="g">

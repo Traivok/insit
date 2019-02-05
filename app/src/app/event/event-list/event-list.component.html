@@ -1,8 +1,8 @@
-<mat-card>
+<mat-card fxHide.xs="true">
         <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
-        </mat-form-field>        
-        
+        </mat-form-field>
+
 
     <mat-table matSort #table [dataSource]="events">
 
@@ -27,7 +27,7 @@
         <!-- Weight Column -->
         <ng-container matColumnDef="eventstatus">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Situação </mat-header-cell>
-            <mat-cell *matCellDef="let element" fxLayoutAlign="start center"> 
+            <mat-cell *matCellDef="let element" fxLayoutAlign="start center">
                 <mat-icon>{{element.status.icon}}</mat-icon>
                 <span fxFlexOffset="1em">  {{element.status.eventstatus_desc}}</span>
             </mat-cell>
@@ -37,7 +37,7 @@
         <ng-container matColumnDef="severity">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Prioridade </mat-header-cell>
             <mat-cell *matCellDef="let element" fxLayoutAlign="start center">
-                <span fxFlexOffset="1em">{{element.severity.severity_desc}}</span> 
+                <span fxFlexOffset="1em">{{element.severity.severity_desc}}</span>
             </mat-cell>
         </ng-container>
 
@@ -58,12 +58,92 @@
         <mat-header-row *matHeaderRowDef="cols"></mat-header-row>
         <mat-row *matRowDef="let row; columns: cols;"></mat-row>
     </mat-table>
-    
-    
+
     <mat-paginator #paginator
                  [pageSize]="10"
                  [pageSizeOptions]="[5, 10, 20]"
                  [showFirstLastButtons]="true">
     </mat-paginator>
-    
 </mat-card>
+
+<div fxHide="true" fxHide.xs="false" >
+
+    <form style="background-color: #fafafa">
+     <mat-form-field fxFlex>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+     </mat-form-field>
+    </form>
+
+    <mat-table fxLayout="row" matSort #table [dataSource]="events">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="event_id">
+            <div fxFlex="auto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Evento </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-icon [ngStyle]="{'color': element.severity.bgColor}">fiber_manual_record</mat-icon>
+                <span fxFlexOffset="1em"> <a [routerLink]="[element.event_id]">{{element.event_id}}</a></span>
+            </mat-cell>
+            </div>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="eventtype">
+            <div fxFlex="auto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Natureza </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayoutAlign="start center">
+                <mat-icon>{{element.eventtype.icon}}</mat-icon>
+                <span fxFlexOffset="1em">  {{element.eventtype.eventtype_desc}}</span>
+            </mat-cell>
+            </div>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="eventstatus">
+            <div fxFlex="auto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Situação </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayoutAlign="start center">
+                <mat-icon>{{element.status.icon}}</mat-icon>
+                <span fxFlexOffset="1em">  {{element.status.eventstatus_desc}}</span>
+            </mat-cell>
+            </div>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="severity">
+            <div fxFlex="auto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Prioridade </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayoutAlign="start center">
+                <span fxFlexOffset="1em">{{element.severity.severity_desc}}</span>
+            </mat-cell>
+            </div>
+        </ng-container>
+
+        <!--<ng-container matColumnDef="bairro">-->
+            <!--<div fxFlex="auto">-->
+            <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Bairro </mat-header-cell>-->
+            <!--<mat-cell *matCellDef="let element">-->
+                <!--{{element.bairro.geo_name}}-->
+            <!--</mat-cell>-->
+            <!--</div>-->
+        <!--</ng-container>-->
+
+        <!--<ng-container matColumnDef="regadm">-->
+            <!--<div fxFlex="auto">-->
+            <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Reg. Adm. </mat-header-cell>-->
+            <!--<mat-cell *matCellDef="let element">-->
+                <!--{{element.bairro.regadm.geo_name}}-->
+            <!--</mat-cell>-->
+            <!--</div>-->
+        <!--</ng-container>-->
+
+        <mat-header-row *matHeaderRowDef="mobile_cols"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: mobile_cols;"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+</div>
