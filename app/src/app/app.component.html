@@ -80,22 +80,22 @@
                     routerLinkActive="active"><mat-icon>public</mat-icon>Mapyx</a>
 -->
 
-                <h3 class="sections">Mídia</h3>
+                <h3 fxHide.xs="true" class="sections">Mídia</h3>
 <!--
                 <a mat-list-item fxFlexLayout="column" class="domain"
                    href="http://sentinela.insit.net.br/#/" target="_blank"
                     routerLinkActive="active"><mat-icon>whatshot</mat-icon>Sentinela</a>
 -->
 
-                <a mat-list-item fxFlexLayout="column" class="domain"
+                <a mat-list-item fxHide.xs="true" fxFlexLayout="column" class="domain"
                    href="https://tweetdeck.twitter.com/#" target="_blank"
                     routerLinkActive="active"><mat-icon>whatshot</mat-icon>Twitter</a>
 
-                <a mat-list-item fxFlexLayout="column" class="domain"
+                <a mat-list-item fxHide.xs="true" fxFlexLayout="column" class="domain"
                    [routerLink]="['/media']"
                     routerLinkActive="active"><mat-icon>whatshot</mat-icon>Repercussão</a>
 
-                <a mat-list-item fxFlexLayout="column" class="domain"  target="_blank"
+                <a mat-list-item fxHide.xs="true" fxFlexLayout="column" class="domain"  target="_blank"
                    href="https://idjovem.juventude.gov.br"
                     routerLinkActive="active"><mat-icon>whatshot</mat-icon>ID Jovem</a>
 
@@ -104,12 +104,12 @@
                    [routerLink]="['/mobile']"
                     routerLinkActive="active"><mat-icon>settings_cell</mat-icon>Mobile</a>
 
-                <h3 class="sections">Ajustes</h3>
-                <a mat-list-item fxFlexLayout="column" class="domain"
+                <h3 class="sections" fxHide.xs="true">Ajustes</h3>
+                <a mat-list-item fxHide.xs="true" fxFlexLayout="column" class="domain"
                    [routerLink]="['/profile']" disabled
                     routerLinkActive="active"><mat-icon>person</mat-icon>Acesso</a>
 
-                <a mat-list-item fxFlexLayout="column" class="domain"
+                <a mat-list-item fxHide.xs="true" fxFlexLayout="column" class="domain"
                    [routerLink]="['/config']"
                     routerLinkActive="active"><mat-icon>settings</mat-icon>Configuração</a>
 
