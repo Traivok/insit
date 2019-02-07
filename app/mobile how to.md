@@ -7,7 +7,6 @@ Ir ao diretório do projeto angular
 
 Compilar o projeto com `ng build --prod`
 
-
 Criar um projeto cordova: `cordova create [PATH]`
 
 No diretório do projeto cordova remover o diretório www: `rm -rf www`
@@ -19,6 +18,8 @@ Adicionar as plataformas: `cordova platform add [platform]`
 Em www/index.html substituir a tag `<base href="/">` por `<base href="./">`
 
 Para testar o projeto num dispositivo usar `cordova run [platform]`, para emulá-lo usar `cordova emulate [platform]`
+
+O ícone pode serr configurado no arquivo de configuraçao "config.xml" na tag `<icon src="res/ios/icon.png" platform="ios" width="57" height="57" density="mdpi" />`
 
 ### Android
 Instalar o Android SDK
