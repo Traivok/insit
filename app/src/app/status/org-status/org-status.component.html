@@ -16,8 +16,10 @@
 
     <mat-card fxFlex class="mobile-status-card" *ngFor="let t of tiles">
         <mat-card-title>
-            <a [routerLink]="[t.org_id]">{{t.org_name}} - {{t.org_sigla}}</a>
+            <a [routerLink]="[t.org_id]">{{t.org_sigla}}</a>
         </mat-card-title>
+
+        <mat-card-subtitle>{{t.org_name}}</mat-card-subtitle>
 
         <mat-card-subtitle>
             Resp.: {{t.chief || 'Não Informado'}}

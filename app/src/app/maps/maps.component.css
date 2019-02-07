@@ -19,14 +19,12 @@
     border: 1px solid green;
 }
 
-
 #feat-name {
     border: 2px solid gray;
     background-color: lightgray;
     border-radius: 5px;
     padding: 5px 10px;
 }
-
 
 svg {
   fill: blue;

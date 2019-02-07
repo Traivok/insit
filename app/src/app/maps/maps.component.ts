@@ -330,10 +330,15 @@ export class MapsComponent implements OnInit {
         
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
-        const EventDialog = function(evt){
-            const coord = evt.mapBrowserEvent.coordinate
-            const config = { width: '50%', height: '50vh', autoFocus: false };
-            
+        const EventDialog = function(evt) {
+
+            const coord = evt.mapBrowserEvent.coordinate;
+            let config = { width: '50%', height: '50vh', autoFocus: false };
+
+            if (this.mobile) {
+                config = { width: '100% !important', height: '80vh', autoFocus: false };
+            }
+
             // Deselecting
             if ( evt.deselected[0] ) {
             }
@@ -355,7 +360,7 @@ export class MapsComponent implements OnInit {
             }
         };
                 
-        this.selectGeo.on('select', EventDialog.bind(this) ); 
+        this.selectGeo.on('select', EventDialog.bind(this));
     }
 
     onChangeLayout() {

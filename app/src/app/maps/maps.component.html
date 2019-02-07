@@ -63,12 +63,6 @@
 
     <mat-tab>
         <ng-template mat-tab-label>
-            <span fxFlex class="text-center">{{eventtype?.eventtype_desc}}</span>
-        </ng-template>
-    </mat-tab>
-
-    <mat-tab>
-        <ng-template mat-tab-label>
             <mat-button-toggle-group multiple>
                 <mat-button-toggle matTooltip="Info"
                                    (change)="info($event.source.checked)">
@@ -84,10 +78,15 @@
                                      (change)="change(et.value)"
                                      [value]="eventtype">
                 <mat-button-toggle *ngFor="let a of eventtypes" [matTooltip]="a.eventtype_desc" [value]="a">
-                    <!--            <mat-icon>{{a.icon}}</mat-icon>-->
-                    {{a.route}}
+                                <mat-icon>{{a.icon}}</mat-icon>
                 </mat-button-toggle>
             </mat-button-toggle-group>
+        </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <span fxFlex class="text-center">{{eventtype?.eventtype_desc}}</span>
         </ng-template>
     </mat-tab>
 

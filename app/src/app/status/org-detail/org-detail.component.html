@@ -4,7 +4,6 @@
         <span fxFlex>{{org?.org_name}}</span>
         <span>{{org?.org_sigla}}<a href="{{org?.url}}"><mat-icon>open_in_new</mat-icon></a></span>
     </mat-card-title>
-    <!-- TODO remove mat-card if mobile, use lists-->
 
     <mat-card-subtitle fxLayout="row" class="detail-status-subtitle">
         <span fxFlex><strong>Responsável:</strong>&nbsp;&nbsp;<span>{{org?.chief}}</span></span>
@@ -19,13 +18,14 @@
 <mat-card *ngIf="mobile" fxLayout="column" fxLayoutAlign="space-between">
     <mat-card-title fxLayout="row" class="detail-status-title">
         <span><a class="h3" [routerLink]="['..']"><mat-icon>arrow_back</mat-icon></a></span>
-        <span fxFlex>{{org?.org_name}}</span>
         <span>{{org?.org_sigla}}<a href="{{org?.url}}"><mat-icon>open_in_new</mat-icon></a></span>
     </mat-card-title>
-    <!-- TODO remove mat-card if mobile, use lists-->
 
     <mat-card-subtitle fxLayout="row" class="detail-status-subtitle">
-        <span fxFlex><strong>Responsável:</strong>&nbsp;&nbsp;<span>{{org?.chief}}</span></span>
+        <span fxFlex><strong>Responsável:</strong><span>{{org?.chief}}</span></span>
+    </mat-card-subtitle>
+
+    <mat-card-subtitle fxLayout="row" class="detail-status-subtitle">
         <span>{{org?.org_type}}</span>
     </mat-card-subtitle>
 
