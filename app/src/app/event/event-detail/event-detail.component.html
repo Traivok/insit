@@ -29,7 +29,8 @@
 
             <mat-list-item>
                 <strong fxFlex="25%" class="text-right">Bairro:</strong>
-                <span fxFlex fxFlexOffset="2em">{{event.bairro?.geo_name}} ({{event.bairro?.regadm?.geo_name}})</span>
+                <span fxHide.xs="true" fxFlex fxFlexOffset="2em">{{event.bairro?.geo_name}} ({{event.bairro?.regadm?.geo_name}})</span>
+                <span fxHide fxHide.xs="false" fxFlex fxFlexOffset="2em">{{event.bairro?.regadm?.geo_name}}</span>
             </mat-list-item>
 
             <mat-list-item>
