@@ -17,6 +17,8 @@ Adicionar as plataformas: `cordova platform add [platform]`
 
 Em www/index.html substituir a tag `<base href="/">` por `<base href="./">`
 
+Para compilar `cordova build --release`
+
 Para testar o projeto num dispositivo usar `cordova run [platform]`, para emulá-lo usar `cordova emulate [platform]`
 
 O ícone pode serr configurado no arquivo de configuraçao "config.xml" na tag `<icon src="res/ios/icon.png" platform="ios" width="57" height="57" density="mdpi" />`
